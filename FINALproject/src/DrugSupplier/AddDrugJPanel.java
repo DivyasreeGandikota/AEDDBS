@@ -57,17 +57,156 @@ public class AddDrugJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        processlbl = new javax.swing.JLabel();
+        logolbl = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        drugTble = new javax.swing.JTable();
+        drugtxtField = new javax.swing.JTextField();
+        addDrugBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        addChemicalButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        processlbl.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        processlbl.setText("Drug Panel");
+        add(processlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 300, 70));
+
+        logolbl.setText("logo");
+        add(logolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 60, 40));
+
+        drugTble.setFont(new java.awt.Font("Microsoft JhengHei Light", 0, 20)); // NOI18N
+        drugTble.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "DrugName"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        drugTble.setRowHeight(30);
+        jScrollPane1.setViewportView(drugTble);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 141, 720, 130));
+
+        drugtxtField.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 20)); // NOI18N
+        drugtxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drugtxtFieldActionPerformed(evt);
+            }
+        });
+        add(drugtxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 230, 40));
+
+        addDrugBtn.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 20)); // NOI18N
+        addDrugBtn.setText("ADD Drug");
+        addDrugBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDrugBtnActionPerformed(evt);
+            }
+        });
+        add(addDrugBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 180, -1));
+
+        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 20)); // NOI18N
+        jLabel3.setText("DRUG");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 123, 40));
+
+        addChemicalButton.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 20)); // NOI18N
+        addChemicalButton.setText("Add Chemical");
+        addChemicalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addChemicalButtonActionPerformed(evt);
+            }
+        });
+        add(addChemicalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, -1));
+
+        backButton.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 20)); // NOI18N
+        backButton.setText(" Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void drugtxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drugtxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drugtxtFieldActionPerformed
+
+    private void addDrugBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDrugBtnActionPerformed
+        // TODO add your handling code here:
+
+        String drugName = drugtxtField.getText().trim();
+        if(drugName.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null,"Drug name cannot be empty");
+            return;
+        }
+        ArrayList<String> drugcheck= new ArrayList<>();
+        for(Drug d:business.getDrugList().getDrugList())
+        {
+            drugcheck.add(d.getDrugName().toLowerCase());
+        }
+        if(drugcheck.contains(drugName.toLowerCase()))
+        {
+            JOptionPane.showMessageDialog(null,"Drug name already exists");
+            return;
+        }
+
+        business.getDrugList().addDrugList().setDrugName(drugName);
+
+        populateTable();
+        log.debug(userAccount+" "+"added new drug"+" "+drugName);
+        drugtxtField.setText("");
+    }//GEN-LAST:event_addDrugBtnActionPerformed
+
+    private void addChemicalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addChemicalButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = drugTble.getSelectedRow();
+        if(selectedRow<0)
+        {
+            JOptionPane.showMessageDialog(null, "please select a row ");
+            return;
+        }
+        Drug c = (Drug) drugTble.getValueAt(selectedRow, 1);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("AddChemicalsJPanel", new AddChemicalsJPanel(userProcessContainer, business, userAccount, drugOrganization, enterprise, network, c));
+        log.debug(userAccount+" "+"entering add chemicals page");
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_addChemicalButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addChemicalButton;
+    private javax.swing.JButton addDrugBtn;
+    private javax.swing.JButton backButton;
+    private javax.swing.JTable drugTble;
+    private javax.swing.JTextField drugtxtField;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel logolbl;
+    private javax.swing.JLabel processlbl;
     // End of variables declaration//GEN-END:variables
 }
