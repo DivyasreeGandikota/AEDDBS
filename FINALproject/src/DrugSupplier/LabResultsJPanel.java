@@ -10,11 +10,28 @@ package DrugSupplier;
  */
 public class LabResultsJPanel extends javax.swing.JPanel {
 
+    private JPanel userProcessContainer;
+    private EcoSystem business;
+    private UserAccount userAccount;
+    private DrugOrganization drugOrganization;
+    private Enterprise enterprise;
+    private Network network;
+    private static Logger log = Logger.getLogger(LabResultsJpanel.class);
+    private static final String CLASS_NAME = LabResultsJpanel.class.getName();
+    
     /**
      * Creates new form LabResultsJPanel
      */
     public LabResultsJPanel() {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = userAccount;
+        this.drugOrganization = drugOrganization;
+        this.enterprise = enterprise;
+        this.network = network;
+        this.business = business;
+        populateTable();
+    }
     }
 
     /**
