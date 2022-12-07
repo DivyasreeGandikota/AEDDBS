@@ -13,8 +13,25 @@ public class GenerateDrugNewDrudJPanel extends javax.swing.JPanel {
     /**
      * Creates new form GenerateDrugNewDrudJPanel
      */
+    private JPanel userProcessContainer;
+    private Patient patient;
+    private DrugOrganization drugOrganization;
+    private UserAccount userAccount;
+    private Network network;
+    private EcoSystem business;
+    private static Logger log = Logger.getLogger(GenerateDrugNewDrugJPanel.class);
+    private static final String CLASS_NAME = GenerateDrugNewDrugJPanel.class.getName();
+
     public GenerateDrugNewDrudJPanel() {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.patient = patient;
+        this.drugOrganization = drugOrganization;
+        this.userAccount = userAccount;
+        this.network = network;
+        this.business = business;
+        patientTxtField.setText(patient.getPatientName());
+        populateTable();
     }
 
     /**
