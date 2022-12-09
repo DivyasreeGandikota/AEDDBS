@@ -1,9 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package LabAssistantRole;
+package userinterface.LabAssistantRole;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
@@ -21,11 +20,11 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Sai Sravani
+ * @author vgout
  */
 public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
 
-     private JPanel userProcessContainer;
+    private JPanel userProcessContainer;
     private EcoSystem business;
     private UserAccount userAccount;
     private LabOrganization labOrganization;
@@ -33,12 +32,13 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private static Logger log = Logger.getLogger(LabAssistantWorkAreaJPanel.class);
     private static final String CLASS_NAME = LabAssistantWorkAreaJPanel.class.getName();
+
     /**
      * Creates new form LabAssistantWorkAreaJPanel
      */
-    public LabAssistantWorkAreaJPanel() {
+    public LabAssistantWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, Organization organization, Enterprise enterprise, EcoSystem business, Network network) {
         initComponents();
-        
+
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
         this.business = business;
@@ -48,8 +48,8 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         log.debug(userAccount+" "+"logged in");
         populateTable();
     }
-    
-     public void populateTable() {
+
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
 
         model.setRowCount(0);
@@ -83,10 +83,12 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
         assignBtn = new javax.swing.JButton();
+        processBtn = new javax.swing.JButton();
         refreshJButton = new javax.swing.JButton();
         LabLbl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(103, 118, 148));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         workRequestJTable.setFont(new java.awt.Font("Microsoft JhengHei Light", 0, 20)); // NOI18N
@@ -128,6 +130,16 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         });
         add(assignBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 510, -1, -1));
 
+        processBtn.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 24)); // NOI18N
+        processBtn.setForeground(new java.awt.Color(0, 0, 102));
+        processBtn.setText("Process");
+        processBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processBtnActionPerformed(evt);
+            }
+        });
+        add(processBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 510, -1, -1));
+
         refreshJButton.setFont(new java.awt.Font("Microsoft JhengHei Light", 1, 24)); // NOI18N
         refreshJButton.setForeground(new java.awt.Color(0, 0, 102));
         refreshJButton.setText("Refresh");
@@ -141,110 +153,12 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         LabLbl.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 48)); // NOI18N
         LabLbl.setText("Lab Work Area");
         add(LabLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 350, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/LabWork.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, 250, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtnActionPerformed
-
-        int selectedRow = workRequestJTable.getSelectedRow();
-
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a row");
-            return;
-        }
-        //to check task is  already completed
-        if (workRequestJTable.getValueAt(selectedRow, 6) != null) {
-            if (((workRequestJTable.getValueAt(selectedRow, 6).equals("Completed")))) {
-
-                JOptionPane.showMessageDialog(null, "Task is already completed");
-                return;
-            }
-        }
-
-        //to check task is already assigned
-        if (workRequestJTable.getValueAt(selectedRow, 6) != null) {
-            if (workRequestJTable.getValueAt(selectedRow, 5) != null) {
-                if (userAccount.getUsername().equalsIgnoreCase(workRequestJTable.getValueAt(selectedRow, 5).toString())) {
-
-                    if (workRequestJTable.getValueAt(selectedRow, 6).equals("Pending")) {
-                        JOptionPane.showMessageDialog(null, "Task is already assigned");
-                        return;
-                    }
-                }
-            }
-        }
-        //to check the task is assigned to some one else
-        if (workRequestJTable.getValueAt(selectedRow, 6) != null) {
-            if (workRequestJTable.getValueAt(selectedRow, 5) != null) {
-                if (workRequestJTable.getValueAt(selectedRow, 6).equals("Processing")) {
-                    JOptionPane.showMessageDialog(null, "Task is already assigned");
-                    return;
-                }
-            }
-        }
-
-        //to check whether task is already assigined
-        if (workRequestJTable.getValueAt(selectedRow, 5) != null) {
-            if (!userAccount.getUsername().equalsIgnoreCase(workRequestJTable.getValueAt(selectedRow, 5).toString())) {
-                JOptionPane.showMessageDialog(null, "Task is already assigned");
-                return;
-            }
-        }
-        int flag = 0;
-
-        for (WorkRequest request : labOrganization.getWorkQueue().getWorkRequestList()) {
-
-            if (request.getStatus() == null) {
-                continue;
-            }
-            if (request.getStatus().equals("Pending")) {
-
-                if (request.getReceiver() != null) {
-
-                    if (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
-                        flag = 1;
-                    }
-                }
-            }
-        }
-        if (flag == 1) {
-            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
-            return;
-
-        }
-        int flag1 = 0;
-        for (WorkRequest request : labOrganization.getWorkQueue().getWorkRequestList()) {
-
-            if (request.getStatus() == null) {
-                continue;
-            }
-            if (workRequestJTable.getValueAt(selectedRow, 5) != null) {
-                if (request.getStatus().equals("Processing") && userAccount.getUsername().equalsIgnoreCase(workRequestJTable.getValueAt(selectedRow, 5).toString())) {
-                    flag1 = 1;
-                }
-            }
-        }
-        if (flag1 == 1) {
-            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
-            return;
-
-        }
-
-        WorkRequest request = (WorkRequest) workRequestJTable.getValueAt(selectedRow, 0);
-        request.setReceiver(userAccount);
-        request.setStatus("Pending");
-        log.debug(userAccount+" "+"has assigned the request");
-        log.debug("status has been set to pending");
-        populateTable();
-    }//GEN-LAST:event_assignBtnActionPerformed
-
-    private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
-        populateTable();
-        log.debug("refreshed the table");
-    }//GEN-LAST:event_refreshJButtonActionPerformed
-
-
-    private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {                                          
 
         int selectedRow = workRequestJTable.getSelectedRow();
 
@@ -337,9 +251,9 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         log.debug("status has been set to pending");
         populateTable();
 
-    }                                         
+    }//GEN-LAST:event_assignBtnActionPerformed
 
-    private void processBtnActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void processBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processBtnActionPerformed
 
         int selectedRow = workRequestJTable.getSelectedRow();
         if (selectedRow < 0) {
@@ -387,18 +301,19 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
 
-    }                                          
+    }//GEN-LAST:event_processBtnActionPerformed
 
-    private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
         populateTable();
         log.debug("refreshed the table");
-    }                                              
+    }//GEN-LAST:event_refreshJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabLbl;
     private javax.swing.JButton assignBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JButton processBtn;
     private javax.swing.JButton refreshJButton;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
