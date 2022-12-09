@@ -1,9 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package LabAssistantRole;
+package userinterface.LabAssistantRole;
 
 import Business.Doctor.Patient;
 import Business.Enterprise.Enterprise;
@@ -31,9 +30,9 @@ import userinterface.DoctorRole.PrescriptionJPanel;
 
 /**
  *
- * @author Sai Sravani
+ * @author vgout
  */
-public class ProcessWordRequestJPanel extends javax.swing.JPanel {
+public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
     private LabTestWorkRequest request;
@@ -45,11 +44,10 @@ public class ProcessWordRequestJPanel extends javax.swing.JPanel {
     private static final String CLASS_NAME = ProcessWorkRequestJPanel.class.getName();
 
     /**
-     * Creates new form ProcessWordRequestJPanel
+     * Creates new form ProcessWorkRequestJPanel
      */
-    public ProcessWordRequestJPanel() {
+    public ProcessWorkRequestJPanel(JPanel userProcessContainer, LabTestWorkRequest request, Organization organization, UserAccount userAccount, Network network) {
         initComponents();
-        
         this.userProcessContainer = userProcessContainer;
         this.request = request;
         this.userAccount = userAccount;
@@ -71,13 +69,18 @@ public class ProcessWordRequestJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         submitBtn = new javax.swing.JButton();
+        resultLbl = new javax.swing.JLabel();
+        patientTxtField = new javax.swing.JTextField();
         backBtn = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         geneTbl = new javax.swing.JTable();
         patientNameLbl = new javax.swing.JLabel();
+        addGeneBtn = new javax.swing.JButton();
         geneLbl = new javax.swing.JLabel();
+        genetxtField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(103, 118, 148));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         submitBtn.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 24)); // NOI18N
@@ -90,8 +93,17 @@ public class ProcessWordRequestJPanel extends javax.swing.JPanel {
         });
         add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 620, -1, -1));
 
+        resultLbl.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 48)); // NOI18N
+        resultLbl.setForeground(new java.awt.Color(51, 51, 51));
+        resultLbl.setText("Result");
+        add(resultLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, -1, -1));
+
+        patientTxtField.setEditable(false);
+        add(patientTxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 150, 30));
+
         backBtn.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 24)); // NOI18N
         backBtn.setForeground(new java.awt.Color(0, 0, 102));
+        backBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\vgout\\AED_ASSIGNMENT\\AED_ASSIGNMENT_LAB\\biogen_finalproject\\BioGen_FinalProject\\src\\Image\\backbtn")); // NOI18N
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,20 +138,71 @@ public class ProcessWordRequestJPanel extends javax.swing.JPanel {
         });
         geneTbl.setRowHeight(30);
         jScrollPane.setViewportView(geneTbl);
+        if (geneTbl.getColumnModel().getColumnCount() > 0) {
+            geneTbl.getColumnModel().getColumn(1).setResizable(false);
+        }
 
-        add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 560, 210));
+        add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 560, 210));
 
         patientNameLbl.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 24)); // NOI18N
         patientNameLbl.setText("Patient Name :");
         add(patientNameLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 180, 30));
 
+        addGeneBtn.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 24)); // NOI18N
+        addGeneBtn.setForeground(new java.awt.Color(0, 0, 102));
+        addGeneBtn.setText("ADD Gene");
+        addGeneBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addGeneBtnActionPerformed(evt);
+            }
+        });
+        add(addGeneBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 490, 160, -1));
+
         geneLbl.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 24)); // NOI18N
         geneLbl.setText("Gene");
-        add(geneLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, 80, 40));
+        add(geneLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 490, 80, 40));
+
+        genetxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genetxtFieldActionPerformed(evt);
+            }
+        });
+        add(genetxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 490, 180, 40));
 
         jLabel1.setBackground(new java.awt.Color(153, 204, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/LabResults.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 1000, 290));
     }// </editor-fold>//GEN-END:initComponents
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) geneTbl.getModel();
+
+        model.setRowCount(0);
+        System.out.println(((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneHistory());
+        System.out.println(((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneHistory().size());
+
+        for (Gene g : ((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneHistory()) {
+
+            Object[] row = new Object[2];
+            row[0] = g.getId();
+            row[1] = g.getGeneName();
+            System.out.println(((LabTestWorkRequest) request).getPatient());
+
+            model.addRow(row);
+        }
+
+    }
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        LabAssistantWorkAreaJPanel dwjp = (LabAssistantWorkAreaJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         submitBtn.setEnabled(true);
@@ -177,93 +240,14 @@ public class ProcessWordRequestJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Result has been succesfully submited");
         submitBtn.setEnabled(false);
 
+
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        LabAssistantWorkAreaJPanel dwjp = (LabAssistantWorkAreaJPanel) component;
-        dwjp.populateTable();
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-    }//GEN-LAST:event_backBtnActionPerformed
-
-      public void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) geneTbl.getModel();
-
-        model.setRowCount(0);
-        System.out.println(((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneHistory());
-        System.out.println(((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneHistory().size());
-
-        for (Gene g : ((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneHistory()) {
-
-            Object[] row = new Object[2];
-            row[0] = g.getId();
-            row[1] = g.getGeneName();
-            System.out.println(((LabTestWorkRequest) request).getPatient());
-
-            model.addRow(row);
-        }
-
-    }
-
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {                                        
-
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        LabAssistantWorkAreaJPanel dwjp = (LabAssistantWorkAreaJPanel) component;
-        dwjp.populateTable();
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-    }                                       
-
-    private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        submitBtn.setEnabled(true);
-        ArrayList<String> genecheck = new ArrayList<>();
-        for (Gene g : ((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneHistory()) {
-            genecheck.add(g.getGeneName());
-
-        }
-        if (genecheck.size() <= 0) {
-            JOptionPane.showMessageDialog(null, "no genes has been added to submit ");
-            return;
-        }
-        request.setStatus("Completed");
-        DrugWorkRequest requestDrug = new DrugWorkRequest();
-
-        requestDrug.setPatient(((LabTestWorkRequest) request).getPatient());
-
-        requestDrug.setSender(userAccount);
-
-        userAccount.getWorkQueue().getWorkRequestList().add(requestDrug);
-        for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-            System.out.println("***** Organization Name:" + enterprise.getName());
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                System.out.println("***** Organization Name:" + organization.getName());
-                if (organization.getName().equals("Drug Organization")) {
-                    System.out.println("True");
-
-                    System.out.println("***** organization Name" + organization.getName());
-
-                    organization.getWorkQueue().getWorkRequestList().add(requestDrug);
-                }
-            }
-
-        }
-        JOptionPane.showMessageDialog(null, "Result has been succesfully submited");
-        submitBtn.setEnabled(false);
-
-
-    }                                         
-
-    private void genetxtFieldActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void genetxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetxtFieldActionPerformed
         // TODO add your handling code here:
-    }                                            
+    }//GEN-LAST:event_genetxtFieldActionPerformed
 
-    private void addGeneBtnActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void addGeneBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGeneBtnActionPerformed
         // TODO add your handling code here:
         Patient patient = ((LabTestWorkRequest) request).getPatient();
         String geneName = genetxtField.getText().trim();
@@ -288,7 +272,7 @@ public class ProcessWordRequestJPanel extends javax.swing.JPanel {
         saveRecord(g.getGeneName());
         genetxtField.setText("");
 
-    }                                          
+    }//GEN-LAST:event_addGeneBtnActionPerformed
 
     public void saveRecord(String gene) {
         try {
@@ -305,12 +289,17 @@ public class ProcessWordRequestJPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addGeneBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel geneLbl;
     private javax.swing.JTable geneTbl;
+    private javax.swing.JTextField genetxtField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JLabel patientNameLbl;
+    private javax.swing.JTextField patientTxtField;
+    private javax.swing.JLabel resultLbl;
     private javax.swing.JButton submitBtn;
     // End of variables declaration//GEN-END:variables
+
 }
