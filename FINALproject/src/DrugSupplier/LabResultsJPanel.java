@@ -43,17 +43,153 @@ public class LabResultsJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        workRequestJTable = new javax.swing.JTable();
+        backBtn = new javax.swing.JButton();
+        generateDrugJButton = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel1.setText("Lab Results");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, 53));
+
+        jLabel2.setText("logo");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, 40, 50));
+
+        workRequestJTable.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 20)); // NOI18N
+        workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Patient Name", "Age", "Sex", "Message", "Sender"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        workRequestJTable.setRowHeight(30);
+        jScrollPane1.setViewportView(workRequestJTable);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 152, 900, 250));
+
+        backBtn.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        backBtn.setText("BACK");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+        add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 490, -1, 33));
+
+        generateDrugJButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        generateDrugJButton.setText("Generate Drug");
+        generateDrugJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateDrugJButtonActionPerformed(evt);
+            }
+        });
+        add(generateDrugJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 480, 210, 40));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        DrugSupplierWorkArea dwjp = (DrugSupplierWorkArea) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void generateDrugJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateDrugJButtonActionPerformed
+
+        int selectedRow = workRequestJTable.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row");
+            return;
+        }
+
+        int flag = 0;
+        Patient patient = (Patient) workRequestJTable.getValueAt(selectedRow, 0);
+        if(patient.getNewDrug()!=null)
+        {
+            JOptionPane.showMessageDialog(null, "Drug has been identified already");
+        }
+
+        List<String> patientGene = new ArrayList<>();
+        for (int i = 0; i < patient.getGeneHistory().getGeneHistory().size(); i++) {
+            Gene g = patient.getGeneHistory().getGeneHistory().get(i);
+            patientGene.add(g.getGeneName());
+
+        }
+        Collections.sort(patientGene);
+        List<String> totaldrugGene = new ArrayList<>();
+        for (Drug d : business.getDrugList().getDrugList()) {
+            List<String> drugGene = new ArrayList<>();
+            for (int i = 0; i < d.getGeneHistory().getGeneHistory().size(); i++) {
+                Gene g = d.getGeneHistory().getGeneHistory().get(i);
+                drugGene.add(g.getGeneName());
+                totaldrugGene.add(g.getGeneName());
+            }
+            Collections.sort(drugGene);
+
+            if (drugGene.equals(patientGene)) {
+                ExistingDrugResultsJpanel existingDrugResultsJpanel = new ExistingDrugResultsJpanel(userProcessContainer, userAccount, enterprise, drugOrganization, network, d);
+
+                userProcessContainer.add("existingDrugResultsJpanel", existingDrugResultsJpanel);
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.next(userProcessContainer);
+                flag = 1;
+            }
+
+        }
+        System.out.println(totaldrugGene.containsAll(patientGene));
+        if (!totaldrugGene.containsAll(patientGene)) {
+            NonExistingGeneJpanel nonExistingGeneJpanel = new NonExistingGeneJpanel(userProcessContainer, userAccount, enterprise, drugOrganization, network);
+
+            userProcessContainer.add("nonExistingGeneJpanel", nonExistingGeneJpanel);
+            log.debug(userAccount+" "+"entering nonexisting page as drug doesn't exist");
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+            flag = 2;
+        }
+
+        if (flag == 0) {
+            GenerateDrugNewDrugJPanel generateDrugNewDrugJPanel = new GenerateDrugNewDrugJPanel(userProcessContainer, patient, drugOrganization, userAccount, network,business);
+
+            userProcessContainer.add("generateDrugNewDrugJPanel", generateDrugNewDrugJPanel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            log.debug(userAccount+" "+"entering new drug page as no drug exists");
+            layout.next(userProcessContainer);
+        }
+
+    }//GEN-LAST:event_generateDrugJButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton generateDrugJButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
 }
