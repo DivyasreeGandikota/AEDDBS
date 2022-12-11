@@ -33,27 +33,26 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        organizationJComboBox = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
         addJButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        nameJTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         backJButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        organizationJComboBox = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         organizationJTable = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        organizationEmpJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        organizationEmpJComboBox = new javax.swing.JComboBox();
+        nameJTextField = new javax.swing.JTextField();
 
-        organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        organizationJComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                organizationJComboBoxActionPerformed(evt);
-            }
-        });
+        setBackground(new java.awt.Color(0, 51, 102));
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Manage Employee");
 
         addJButton.setBackground(new java.awt.Color(255, 255, 255));
-        addJButton.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        addJButton.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         addJButton.setText("Create Employee");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,16 +60,25 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
-
-        jLabel1.setFont(new java.awt.Font("Bodoni MT", 1, 18)); // NOI18N
-        jLabel1.setText("Organization");
 
         backJButton.setText("Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backJButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Organization");
+
+        organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        organizationJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                organizationJComboBoxActionPerformed(evt);
             }
         });
 
@@ -99,13 +107,17 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(organizationJTable);
 
-        jLabel4.setFont(new java.awt.Font("Bodoni MT", 1, 24)); // NOI18N
-        jLabel4.setText("Manage Employee");
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Organization");
 
         organizationEmpJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel3.setText("Organization");
+        nameJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nameJTextFieldKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,18 +127,16 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(backJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3)
@@ -136,7 +146,11 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                                             .addComponent(nameJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                                             .addComponent(organizationEmpJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addComponent(addJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(backJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(99, 99, 99))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
@@ -148,11 +162,12 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel4)
-                .addGap(36, 36, 36)
+                .addGap(4, 4, 4)
+                .addComponent(backJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(backJButton))
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
@@ -165,16 +180,9 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                     .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(addJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
-        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if (organization != null){
-            populateTable(organization);
-        }
-    }//GEN-LAST:event_organizationJComboBoxActionPerformed
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
 
@@ -204,10 +212,30 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
+    private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
+        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
+        if (organization != null){
+            populateTable(organization);
+        }
+    }//GEN-LAST:event_organizationJComboBoxActionPerformed
+
+    private void nameJTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameJTextFieldKeyPressed
+        // TODO add your handling code here
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)|| Character.isWhitespace(c))
+        {
+            nameJTextField.setEditable(true);
+        }
+        else
+        {
+            nameJTextField.setEditable(false);
+            JOptionPane.showMessageDialog(this, "Invalid Input \nenter valid name");
+        }
+    }//GEN-LAST:event_nameJTextFieldKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addJButton;
     private javax.swing.JButton backJButton;
-    private javax.swing.JButton btnManageEmployee;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
