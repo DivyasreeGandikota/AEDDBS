@@ -6,12 +6,14 @@ package Business.Enterprise;
 
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
+
 /**
  *
- * @author db
+ *  @author db
  */
-public class Enterprise {
-    private EnterpriseType enterpriseType;
+public abstract class Enterprise extends Organization{
+    
+    private Enterprise.EnterpriseType enterpriseType;
     private OrganizationDirectory organizationDirectory;
 
     public OrganizationDirectory getOrganizationDirectory() {
@@ -39,4 +41,76 @@ public class Enterprise {
         return value;
 
     }
+    }
+    
+    public enum EnumType1{
+        NGO("NGO"),NgoFoodOrganization("Ngo Food Organization");
+        private String value;
+        private EnumType1(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+    
+    public enum EnumType2{
+       Shelter("Shelter"),ShelterFoodOrganization("Shelter Food Organization");
+        private String value;
+        private EnumType2(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+    
+    public enum EnumType3{
+       Distributor("Distributor"),DistributorFoodOrganization("Distributor Food Organization");
+        private String value;
+        private EnumType3(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+    
+    public enum EnumType4{
+       QualityCheck("Quality Check"),QualityCheckFoodOrganization("QualityCheck Food Organization");
+        private String value;
+        private EnumType4(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+    
+    public enum EnumType5{
+       Supplier("Supplier"),SupplierFoodOrganization("Supplier Food Organization");
+        private String value;
+        private EnumType5(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+
+
+    public Enterprise.EnterpriseType getEnterpriseType() {
+        return enterpriseType;
+    }
+
+    public void setEnterpriseType(Enterprise.EnterpriseType enterpriseType) {
+        this.enterpriseType = enterpriseType;
+    }
+    
+    public Enterprise(String name,Enterprise.EnterpriseType type){
+        super(name);
+        this.enterpriseType=type;
+        organizationDirectory=new OrganizationDirectory();
+    }
+    
 }
