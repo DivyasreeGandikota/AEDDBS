@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 /**
  *
- *  @author db
+ * @author db
  */
-public class SupplierEnterprise extends Enterprise{
+public class ShelterEnterprise extends Enterprise {
     
-    public SupplierEnterprise(String name){
-        super(name,Enterprise.EnterpriseType.Supplier);
+      public ShelterEnterprise(String name){
+        super(name,Enterprise.EnterpriseType.Shelter);
     }
     
     @Override

@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author db
+ *  @author db
  */
 public class NGOEnterprise extends Enterprise{
-       public NGOEnterprise(String name){
+    
+    public NGOEnterprise(String name){
         super(name,Enterprise.EnterpriseType.NGO);
     }
     
@@ -20,5 +21,4 @@ public class NGOEnterprise extends Enterprise{
     public ArrayList<Role> getSupportedRole() {
         return null;
     }
-    
 }
