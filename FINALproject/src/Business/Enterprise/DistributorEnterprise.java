@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 package Business.Enterprise;
+
 import Business.Role.Role;
 import Business.WorkQueue.InventoryDirectory;
-
 import java.util.ArrayList;
 /**
  *
