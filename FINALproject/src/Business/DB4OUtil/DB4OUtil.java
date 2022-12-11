@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package BusinessDB4OUtil;
+package Business.DB4OUtil;
 
 import Business.EcoSystem;
 import com.db4o.Db4oEmbedded;
