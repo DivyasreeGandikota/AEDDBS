@@ -78,25 +78,55 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        refreshJButton = new javax.swing.JButton();
+        enterpriseLabel1 = new javax.swing.JLabel();
+        btnApprove = new javax.swing.JButton();
         btnProductsList = new javax.swing.JButton();
+        assignJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
-        assignJButton = new javax.swing.JButton();
-        btnApprove = new javax.swing.JButton();
-        enterpriseLabel1 = new javax.swing.JLabel();
-        refreshJButton = new javax.swing.JButton();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setBackground(new java.awt.Color(0, 51, 102));
+
+        refreshJButton.setBackground(new java.awt.Color(255, 255, 255));
+        refreshJButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        refreshJButton.setText("Refresh");
+        refreshJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshJButtonActionPerformed(evt);
+            }
+        });
+
+        enterpriseLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        enterpriseLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        enterpriseLabel1.setText("Supplier Dashboard");
+
+        btnApprove.setBackground(new java.awt.Color(255, 255, 255));
+        btnApprove.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        btnApprove.setText("Approve");
+        btnApprove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApproveActionPerformed(evt);
+            }
+        });
 
         btnProductsList.setBackground(new java.awt.Color(255, 255, 255));
-        btnProductsList.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
+        btnProductsList.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         btnProductsList.setText("View Product Request");
         btnProductsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductsListActionPerformed(evt);
             }
         });
-        add(btnProductsList, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 280, 195, 38));
+
+        assignJButton.setBackground(new java.awt.Color(255, 255, 255));
+        assignJButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        assignJButton.setText("Assign to me");
+        assignJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignJButtonActionPerformed(evt);
+            }
+        });
 
         workRequestJTable.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -124,62 +154,49 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(workRequestJTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 82, 611, 171));
-
-        assignJButton.setBackground(new java.awt.Color(255, 255, 255));
-        assignJButton.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        assignJButton.setText("Assign to me");
-        assignJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignJButtonActionPerformed(evt);
-            }
-        });
-        add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 280, 226, 38));
-
-        btnApprove.setBackground(new java.awt.Color(255, 255, 255));
-        btnApprove.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        btnApprove.setText("Approve");
-        btnApprove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnApproveActionPerformed(evt);
-            }
-        });
-        add(btnApprove, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 160, 38));
-
-        enterpriseLabel1.setFont(new java.awt.Font("Bodoni MT", 1, 24)); // NOI18N
-        enterpriseLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        enterpriseLabel1.setText("Supplier Dashboard");
-        add(enterpriseLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 28, 269, 30));
-
-        refreshJButton.setBackground(new java.awt.Color(255, 255, 255));
-        refreshJButton.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        refreshJButton.setText("Refresh");
-        refreshJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshJButtonActionPerformed(evt);
-            }
-        });
-        add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 29, 112, 35));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(assignJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnProductsList, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 205, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(refreshJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnProductsList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(assignJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(138, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnProductsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductsListActionPerformed
-
-    }//GEN-LAST:event_btnProductsListActionPerformed
-
-    private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
-
-        int selectedRow = workRequestJTable.getSelectedRow();
-
-        if (selectedRow < 0) {
-            return;
-        }
-
-        WorkRequest request = (WorkRequest) workRequestJTable.getValueAt(selectedRow, 0);
-        if (request.getReceiver() == null) {
-            request.setReceiver(userAccount);
-        }
+    private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
         populateTable();
-    }//GEN-LAST:event_assignJButtonActionPerformed
+        JOptionPane.showMessageDialog(null, "Requests Updated!");
+    }//GEN-LAST:event_refreshJButtonActionPerformed
 
     private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
         // TODO add your handling code here:
@@ -283,10 +300,24 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnApproveActionPerformed
 
-    private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
+    private void btnProductsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductsListActionPerformed
+
+    }//GEN-LAST:event_btnProductsListActionPerformed
+
+    private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
+
+        int selectedRow = workRequestJTable.getSelectedRow();
+
+        if (selectedRow < 0) {
+            return;
+        }
+
+        WorkRequest request = (WorkRequest) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getReceiver() == null) {
+            request.setReceiver(userAccount);
+        }
         populateTable();
-        JOptionPane.showMessageDialog(null, "Requests Updated!");
-    }//GEN-LAST:event_refreshJButtonActionPerformed
+    }//GEN-LAST:event_assignJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
