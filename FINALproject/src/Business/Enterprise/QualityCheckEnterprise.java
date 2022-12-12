@@ -5,17 +5,16 @@
 package Business.Enterprise;
 
 import Business.Role.Role;
-import Business.WorkQueue.InventoryDirectory;
 import java.util.ArrayList;
 
 /**
  *
  * @author db
  */
-public class DistributorEnterprise {
-    public DistributorEnterprise(String name){
-        super(name,Enterprise.EnterpriseType.Distributor);
-        
+public class QualityCheckEnterprise {
+    
+      public QualityCheckEnterprise(String name){
+        super(name,Enterprise.EnterpriseType.QualityCheck);
     }
     
     @Override
