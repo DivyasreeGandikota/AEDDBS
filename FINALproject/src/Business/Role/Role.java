@@ -15,9 +15,10 @@ import javax.swing.JPanel;
  *
  * @author Sai Sravani
  */
-public class Role {
+ 
+public abstract class Role {
     
-     public enum RoleType{
+    public enum RoleType{
     NGORole("NGORole"), 
     AdminRole("AdminRole"),
     DistributorRole("DistributorRole"),
@@ -41,6 +42,7 @@ public class Role {
         }
     
     }
+    
     public abstract JPanel createWorkArea(JPanel userProcessContainer, 
             UserAccount account, 
             Organization organization, 
@@ -50,8 +52,6 @@ public class Role {
     @Override
     public String toString() {
         return this.getClass().getName();
-    }
-    
+    }    
     
 }
-

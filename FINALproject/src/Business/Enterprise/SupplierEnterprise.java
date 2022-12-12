@@ -11,6 +11,7 @@ import java.util.ArrayList;
  *
  *  @author db
  */
+
 public class SupplierEnterprise extends Enterprise{
     
     public SupplierEnterprise(String name){
@@ -21,4 +22,5 @@ public class SupplierEnterprise extends Enterprise{
     public ArrayList<Role> getSupportedRole() {
         return null;
     }
+    
 }

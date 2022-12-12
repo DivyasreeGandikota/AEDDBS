@@ -27,7 +27,7 @@ public class EnterpriseDirectory {
         enterpriseList=new ArrayList<Enterprise>();
     }
     
-    //Create enterprise
+    //Creating enterprise
     public Enterprise createAndAddEnterprise(String name,Enterprise.EnterpriseType type){
         Enterprise enterprise=null;
         if(type==Enterprise.EnterpriseType.NGO){
@@ -50,9 +50,7 @@ public class EnterpriseDirectory {
             enterprise=new SupplierEnterprise(name);
             enterpriseList.add(enterprise);
         }
-        
         return enterprise;
     }
-    
-    
+ 
 }

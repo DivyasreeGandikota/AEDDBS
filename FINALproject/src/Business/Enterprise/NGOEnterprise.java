@@ -11,6 +11,7 @@ import java.util.ArrayList;
  *
  *  @author db
  */
+
 public class NGOEnterprise extends Enterprise{
     
     public NGOEnterprise(String name){

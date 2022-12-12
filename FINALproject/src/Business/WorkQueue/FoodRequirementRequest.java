@@ -11,9 +11,9 @@ import java.util.ArrayList;
  *
  * @author Sai Sravani
  */
-public class FoodRequirementRequest {
-    
-     private String requestResult;
+public class FoodRequirementRequest extends WorkRequest{
+     
+    private String requestResult;
     private ArrayList<Products> productList;
 
     public ArrayList<Products> getSuppProductList() {
@@ -23,6 +23,7 @@ public class FoodRequirementRequest {
     public void setSuppProductList(ArrayList<Products> suppProductList) {
         this.suppProductList = suppProductList;
     }
+    
     private ArrayList<Products> suppProductList;
     
     public FoodRequirementRequest(){
@@ -46,8 +47,4 @@ public class FoodRequirementRequest {
     public void setProductList(ArrayList<Products> productList) {
         this.productList = productList;
     }
-    
-    
-    
-    
 }

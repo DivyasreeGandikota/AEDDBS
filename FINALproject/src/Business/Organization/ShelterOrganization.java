@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author bunny
+ *  @author bunny
  */
-public class ShelterOrganization {
+
+public class ShelterOrganization extends Organization{
     
-    
-    public ShelterOrganization() {
+     public ShelterOrganization() {
         super(Organization.Type.ShelterFoodOrganization.getValue());
     }
     

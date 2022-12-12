@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author db
+ *  @author db
  */
-public class QualityCheckEnterprise {
+
+public class QualityCheckEnterprise extends Enterprise {
     
-      public QualityCheckEnterprise(String name){
+    public QualityCheckEnterprise(String name){
         super(name,Enterprise.EnterpriseType.QualityCheck);
     }
     

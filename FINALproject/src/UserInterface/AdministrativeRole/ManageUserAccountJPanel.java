@@ -4,6 +4,17 @@
  */
 package UserInterface.AdministrativeRole;
 
+import Business.Employee.Employee;
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
+import Business.Role.Role;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author db
@@ -13,8 +24,18 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageUserAccountJPanel
      */
+    private JPanel userProcessContainer;
+    private Enterprise enterprise;
+    
     public ManageUserAccountJPanel() {
         initComponents();
+        this.userProcessContainer=userProcessContainer;
+        this.enterprise=enterprise;
+        popOrganizationComboBox();
+    }
+
+    ManageUserAccountJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -225,19 +246,17 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
 
-        //******************* Validation ********************
-
-        String uName = nameJTextField.getText();
+       String uName = nameJTextField.getText();
         String pass = passwordJTextField.getText();
-
+        
         if(uName.equalsIgnoreCase("") || pass.equalsIgnoreCase("")){
-
+            
             JOptionPane.showMessageDialog(null, "Fields Cannot Be Empty!", "Warning",JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         //**************************************************
-
+        
         String userName = nameJTextField.getText();
         String password = passwordJTextField.getText();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
@@ -246,12 +265,41 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
         populateData();
-
+        
         JOptionPane.showMessageDialog(null, "Credentials have been created");
         nameJTextField.setText("");
         passwordJTextField.setText("");
     }//GEN-LAST:event_createUserJButtonActionPerformed
+    public void populateEmployeeComboBox(Organization organization){
+        employeeJComboBox.removeAllItems();
+        
+        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
+            employeeJComboBox.addItem(employee);
+        }
+    }
+    
+    public void populateData() {
 
+        DefaultTableModel model = (DefaultTableModel) userJTable.getModel();
+
+        model.setRowCount(0);
+
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
+                Object row[] = new Object[2];
+                row[0] = ua;
+                row[1] = ua.getRole();
+                ((DefaultTableModel) userJTable.getModel()).addRow(row);
+            }
+        }
+    }
+    
+    private void populateRoleComboBox(Organization organization){
+        roleJComboBox.removeAllItems();
+        for (Role role : organization.getSupportedRole()){
+            roleJComboBox.addItem(role);
+        }
+    }
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
@@ -259,6 +307,14 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
+        public void popOrganizationComboBox() {
+        organizationJComboBox.removeAllItems();
+
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            organizationJComboBox.addItem(organization);
+        }
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton createUserJButton;

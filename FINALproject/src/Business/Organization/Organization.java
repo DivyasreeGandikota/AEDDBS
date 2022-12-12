@@ -5,18 +5,17 @@
 package Business.Organization;
 
 import Business.Employee.EmployeeDirectory;
-import java.util.ArrayList;
 import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
+import java.util.ArrayList;
 
 /**
  *
  * @author bunny
  */
-public class Organization {
-    
-    
+
+public abstract class Organization {
     
     private String name;
     private WorkQueue workQueue;
@@ -24,7 +23,6 @@ public class Organization {
     private UserAccountDirectory userAccountDirectory;
     private int organizationID;
     private static int counter=0;
-    
     
     public enum Type{
         Admin("Admin Organization"),
@@ -51,9 +49,7 @@ public class Organization {
         organizationID = counter;
         ++counter;
     }
-    
-    
-    
+
     public abstract ArrayList<Role> getSupportedRole();
     
     public UserAccountDirectory getUserAccountDirectory() {

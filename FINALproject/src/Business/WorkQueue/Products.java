@@ -11,10 +11,9 @@ package Business.WorkQueue;
  */
 public class Products {
     
-     private String productType;
+    private String productType;
     private String productName;
     private int quantity;
-    
 
     public String getProductType() {
         return productType;
@@ -43,8 +42,5 @@ public class Products {
     @Override
     public String toString() {
         return productType;
-    }
-    
-    
-    
+    }   
 }

@@ -12,8 +12,8 @@ import java.util.Date;
  * @author Sai Sravani
  */
 public class Inventory {
-    
-     private String productID;
+
+    private String productID;
     private String productName;
     private String productType;
     private String availability;
@@ -81,6 +81,4 @@ public class Inventory {
     public String toString() {
         return this.productID;
     }
-
-    
 }

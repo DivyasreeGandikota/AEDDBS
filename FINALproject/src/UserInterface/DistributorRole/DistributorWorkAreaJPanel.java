@@ -4,6 +4,26 @@
  */
 package UserInterface.DistributorRole;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.QualityCheckEnterprise;
+import Business.Network.Network;
+import Business.Organization.DistributorOrganization;
+import Business.Organization.Organization;
+import Business.Organization.QualityOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.FoodRequirementRequest;
+import Business.WorkQueue.Inventory;
+import Business.WorkQueue.InventoryDirectory;
+import Business.WorkQueue.Products;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author db
@@ -13,10 +33,41 @@ public class DistributorWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DistributorWorkAreaJPanel
      */
-    public DistributorWorkAreaJPanel() {
+    
+    private JPanel userProcessContainer;
+    private UserAccount userAccount;
+    private DistributorOrganization distributorOrganization;
+    private Enterprise enterprise;
+    private EcoSystem business;
+    
+   public DistributorWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, DistributorOrganization distributorOrganization, Enterprise enterprise, EcoSystem business) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = userAccount;
+        this.business = business;
+        this.enterprise = enterprise;
+        this.distributorOrganization = (DistributorOrganization) distributorOrganization;
+
+        populateTable();
     }
 
+    public void populateTable() {
+
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
+
+        model.setRowCount(0);
+
+        for (WorkRequest request : distributorOrganization.getWorkQueue().getWorkRequestList()) {
+            Object[] row = new Object[4];
+            row[0] = request;
+            row[1] = request.getSender().getEmployee().getName();
+            row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[3] = request.getStatus();
+
+            model.addRow(row);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -230,15 +281,15 @@ public class DistributorWorkAreaJPanel extends javax.swing.JPanel {
         }
         System.out.println(InventoryDirectory.inventoryList+"inventory");
         for (Inventory inSupp : InventoryDirectory.getInventoryList()) {
-
+            
             for (Products prod : request.getProductList()) {
                 if (prod.getProductName().equalsIgnoreCase(inSupp.getProductName())) {
                     System.out.println(prod.getProductName() + "   " + inSupp.getProductName());
                     if (prod.getQuantity() < inSupp.getQuantity()) {
-                        //                        suppCount=inSupp.getQuantity();
-                        //                        reqCount=prod.getQuantity();
-                        //                        suppCount=-reqCount;
-                        //                        inSupp.setQuantity(suppCount);
+//                        suppCount=inSupp.getQuantity();
+//                        reqCount=prod.getQuantity();
+//                        suppCount=-reqCount;
+//                        inSupp.setQuantity(suppCount);
                         booleanList.add(true);
                         //    flag = true;
                         //  break;
@@ -247,8 +298,8 @@ public class DistributorWorkAreaJPanel extends javax.swing.JPanel {
                         reqProductMap.put(prod.getProductName(), prod.getQuantity());
                         System.out.println(reqProductMap + "Request Map");
                         booleanList.add(false);
-                        //   flag = false;
-                        //                        JOptionPane.showMessageDialog(null, "Insufficient Quantity for "+prod.getProductName());
+//   flag = false;
+//                        JOptionPane.showMessageDialog(null, "Insufficient Quantity for "+prod.getProductName());
                         //  break;
                     }
                 }
@@ -259,10 +310,10 @@ public class DistributorWorkAreaJPanel extends javax.swing.JPanel {
         } else {
             flag = true;
         }
-        System.out.println(flag + "FLAG KA VALUE");
+        System.out.println(flag + "FLAG VALUE");
         request.setStatus("Processing");
 
-        ProcessDWorkAreaJPanel processWorkRequestJPanel = new ProcessDWorkAreaJPanel(userProcessContainer, userAccount, request, flag, reqProductMap, enterprise, business);
+       ProcessDWorkAreaJPanel processWorkRequestJPanel = new ProcessDWorkAreaJPanel(userProcessContainer, userAccount, request, flag, reqProductMap, enterprise, business);
         userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -270,7 +321,7 @@ public class DistributorWorkAreaJPanel extends javax.swing.JPanel {
 
     private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
 
-        int selectedRow = workRequestJTable.getSelectedRow();
+       int selectedRow = workRequestJTable.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request!", "Warning", JOptionPane.WARNING_MESSAGE);

@@ -4,18 +4,17 @@
  */
 package Business.Organization;
 
-import java.util.ArrayList;
 import Business.Role.AdminRole;
 import Business.Role.NGORole;
 import Business.Role.Role;
-import javax.management.relation.Role;
+import java.util.ArrayList;
 
 /**
  *
  * @author bunny
  */
+
 public class NGOAdminOrganization extends Organization{
-    
     
      public NGOAdminOrganization() {
         super(Organization.Type.NgoFoodOrganization.getValue());
@@ -27,7 +26,5 @@ public class NGOAdminOrganization extends Organization{
         roles.add(new NGORole());
         return roles;
     }
-    
-    
     
 }

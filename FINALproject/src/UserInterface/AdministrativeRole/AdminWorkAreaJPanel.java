@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 package UserInterface.AdministrativeRole;
+
+import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -17,9 +19,9 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     
     private  JPanel userProcessContainer;
-    //private Enterprise enterprise;
+    private Enterprise enterprise;
     
-    public AdminWorkAreaJPanel() {
+    public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.enterprise=enterprise;
@@ -126,7 +128,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageUserActionPerformed
 
-        ManageUserAccountJPanel manageUserJPanel = new ManageUserAccountJPanel(userProcessContainer, enterprise);
+               ManageUserAccountJPanel manageUserJPanel = new ManageUserAccountJPanel(userProcessContainer, enterprise);
         userProcessContainer.add("ManageUserAccountJPanel", manageUserJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -137,7 +139,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         ManageEmployeeJPanel manageEmployeeJPanel = new ManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
         userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+        layout.next(userProcessContainer); 
 
     }//GEN-LAST:event_btnManageEmployeeActionPerformed
 

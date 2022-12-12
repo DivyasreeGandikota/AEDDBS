@@ -4,6 +4,27 @@
  */
 package UserInterface.DistributorRole;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.SupplierEnterprise;
+import Business.Network.Network;
+import Business.Organization.Organization;
+import Business.Organization.SupplierOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.FoodRequirementRequest;
+import Business.WorkQueue.Inventory;
+import Business.WorkQueue.InventoryDirectory;
+import Business.WorkQueue.Products;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author db
@@ -13,8 +34,42 @@ public class ProcessDWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ProcessDWorkAreaJPanel
      */
-    public ProcessDWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private FoodRequirementRequest request;
+    private ArrayList<Inventory> inventoryList;
+    private ArrayList<Products> productList;
+    UserAccount userAccount;
+    boolean flag1 = false;
+    EcoSystem ecosystem;
+    Boolean flagFood;
+    Enterprise enterprise;
+    HashMap<String, Integer> requiredProdMap = new HashMap<>();
+
+   
+   public ProcessDWorkAreaJPanel(JPanel userProcessContainer,UserAccount userAccount, FoodRequirementRequest requestFood, Boolean flag, HashMap<String, Integer> requiredProdMap, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
+        // InventoryDirectory.setInventoryList();
+        this.userProcessContainer = userProcessContainer;
+        this.request = requestFood;
+        productList = request.getProductList();
+        this.flagFood = flag;
+        this.enterprise = enterprise;
+        this.ecosystem = ecosystem;
+        this.userAccount=userAccount;
+        this.requiredProdMap = requiredProdMap;
+        
+        if (flagFood == true) {
+            submitJButton.setEnabled(true);
+            btnSupplierFood.setEnabled(false);
+
+        } else {
+            submitJButton.setEnabled(false);
+            btnSupplierFood.setEnabled(true);
+
+        }
+        populateTable();
+
+        populateInventory();
     }
 
     /**
@@ -218,13 +273,13 @@ public class ProcessDWorkAreaJPanel extends javax.swing.JPanel {
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
 
-        resultJTextField.setText("Approved");
+   resultJTextField.setText("Approved");
         request.setRequestResult(resultJTextField.getText());
         request.setStatus("Completed");
 
         int suppCount = 0, reqCount = 0, newresult = 0;
 
-        //for (Inventory inSupp : inventoryList)
+        //for (Inventory inSupp : inventoryList) 
         for (Inventory inSupp : InventoryDirectory.getInventoryList()) {
             for (Products prod : productList) {
                 if (prod.getProductName().equalsIgnoreCase(inSupp.getProductName())) {
@@ -239,17 +294,17 @@ public class ProcessDWorkAreaJPanel extends javax.swing.JPanel {
                 }
             }
         }
-        // InventoryDirectory.setInventoryList(inventoryList);
-        JOptionPane.showMessageDialog(null, "Request Approved Successfully!");
+       // InventoryDirectory.setInventoryList(inventoryList);
+         JOptionPane.showMessageDialog(null, "Request Approved Successfully!");
         populateInventory();
     }//GEN-LAST:event_submitJButtonActionPerformed
 
     private void btnSupplierFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierFoodActionPerformed
         // TODO add your handling code here:
-        Organization orgSupp=null;
-        //        resultJTextField.setText("Sent to Supplier");
-        //        request.setRequestResult(resultJTextField.getText());
-        //        request.setStatus("Sent to Supplier");
+ Organization orgSupp=null;
+//        resultJTextField.setText("Sent to Supplier");
+//        request.setRequestResult(resultJTextField.getText());
+//        request.setStatus("Sent to Supplier");
         ArrayList<Products> productListSupp = new ArrayList<>();
         for (String str : requiredProdMap.keySet()) {
             Products p = new Products();
@@ -258,7 +313,7 @@ public class ProcessDWorkAreaJPanel extends javax.swing.JPanel {
             productListSupp.add(p);
 
         }
-        // request.setMessage("Process Required Food");
+      // request.setMessage("Process Required Food");
         request.setSender(userAccount);
         if(request.getReceiver()==userAccount)
         {
@@ -267,24 +322,71 @@ public class ProcessDWorkAreaJPanel extends javax.swing.JPanel {
         request.setStatus("Pending Approval from Supplier");
         request.setProductList(productList);
         request.setSuppProductList(productListSupp);
-
+        
         for (Network network : ecosystem.getNetworkList()) {
             for (Enterprise entp : network.getEnterpriseDirectory().getEnterpriseList()) {
                 if (entp instanceof SupplierEnterprise) {
                     for (Organization org : entp.getOrganizationDirectory().getOrganizationList()) {
                         if (org instanceof SupplierOrganization) {
-                            org.getWorkQueue().getWorkRequestList().add(request);
-                            userAccount.getWorkQueue().getWorkRequestList().add(request);
+                           org.getWorkQueue().getWorkRequestList().add(request);
+                           userAccount.getWorkQueue().getWorkRequestList().add(request);
+                            
 
                         }
                     }
                 }
             }
         }
-
+      
+          
+        
         JOptionPane.showMessageDialog(null, "Request Sent to Supplier!");
-
+        
     }//GEN-LAST:event_btnSupplierFoodActionPerformed
+   public void populateTable() {
+
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+
+        model.setRowCount(0);
+
+        productList = ((FoodRequirementRequest) request).getProductList();
+        if (productList != null) {
+            for (Products p : productList) {
+                Object row[] = new Object[3];
+                row[0] = p;
+                row[1] = p.getProductName();
+                row[2] = p.getQuantity();
+                model.addRow(row);
+            }
+        }
+    }
+
+    private void populateInventory() {
+
+          inventoryList = InventoryDirectory.getInventoryList();
+        DefaultTableModel model1 = (DefaultTableModel) tblInventory.getModel();
+        model1.setRowCount(0);
+        for (Inventory p : inventoryList) {
+            Object row[] = new Object[5];
+            row[0] = p;
+            row[1] = p.getProductType();
+            row[2] = p.getProductName();
+            row[3] = p.getAvailability();
+            row[4] = p.getQuantity();
+
+            model1.addRow(row);
+
+        }
+        Set<String> set = new HashSet<String>();
+        for (Inventory c : InventoryDirectory.getInventoryList()) {
+            set.add(c.getProductType());
+        }
+        jComboBoxProductType.removeAllItems();
+
+        for (String a : set) {
+            jComboBoxProductType.addItem(a);
+        }
+    }
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
@@ -299,7 +401,7 @@ public class ProcessDWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnInventoryCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventoryCountActionPerformed
 
-        int counter = 0;
+  int counter = 0;
         for (Inventory i : inventoryList) {
 
             counter = counter + i.getQuantity();

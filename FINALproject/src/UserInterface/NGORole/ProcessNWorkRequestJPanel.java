@@ -4,6 +4,13 @@
  */
 package UserInterface.NGORole;
 
+import Business.WorkQueue.FoodRequirementRequest;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author bunny
@@ -13,9 +20,22 @@ public class ProcessNWorkRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ProcessNWorkRequestJPanel
      */
-    public ProcessNWorkRequestJPanel() {
+    private JPanel userProcessContainer;
+    private FoodRequirementRequest request;
+    public ProcessNWorkRequestJPanel(JPanel userProcessContainer, FoodRequirementRequest request) {
         initComponents();
+          this.userProcessContainer = userProcessContainer;
+        this.request = request;
+        groupButton();
     }
+     private void groupButton( ) {
+
+    ButtonGroup bg1 = new ButtonGroup( );
+    bg1.add(radioApproved);
+    bg1.add(radioRejected);
+
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,26 +46,29 @@ public class ProcessNWorkRequestJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        submitJButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        backJButton = new javax.swing.JButton();
+        radioApproved = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         radioRejected = new javax.swing.JRadioButton();
-        radioApproved = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        backJButton = new javax.swing.JButton();
+        submitJButton = new javax.swing.JButton();
 
-        submitJButton.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        submitJButton.setText("Submit Result");
-        submitJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitJButtonActionPerformed(evt);
-            }
-        });
+        setBackground(new java.awt.Color(0, 51, 102));
 
-        jLabel1.setFont(new java.awt.Font("Bodoni MT", 1, 18)); // NOI18N
+        radioApproved.setText("Approved");
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Processing Request");
+
+        radioRejected.setText("Rejected");
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Result:");
 
-        backJButton.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
+        backJButton.setBackground(new java.awt.Color(255, 255, 255));
+        backJButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         backJButton.setText("Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,13 +76,14 @@ public class ProcessNWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Bodoni MT", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Processing Request");
-
-        radioRejected.setText("Rejected");
-
-        radioApproved.setText("Approved");
+        submitJButton.setBackground(new java.awt.Color(255, 255, 255));
+        submitJButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        submitJButton.setText("Submit Result");
+        submitJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -82,7 +106,7 @@ public class ProcessNWorkRequestJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(radioRejected)
                             .addComponent(radioApproved))))
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(357, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,9 +123,21 @@ public class ProcessNWorkRequestJPanel extends javax.swing.JPanel {
                 .addComponent(submitJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        NGOWorkAreaJPanel dwjp = (NGOWorkAreaJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+
+    }//GEN-LAST:event_backJButtonActionPerformed
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
 
@@ -123,18 +159,6 @@ public class ProcessNWorkRequestJPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_submitJButtonActionPerformed
-
-    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
-
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        NGOWorkAreaJPanel dwjp = (NGOWorkAreaJPanel) component;
-        dwjp.populateTable();
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-
-    }//GEN-LAST:event_backJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

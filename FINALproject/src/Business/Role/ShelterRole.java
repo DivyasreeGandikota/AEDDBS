@@ -17,13 +17,12 @@ import javax.swing.JPanel;
  *
  * @author Sai Sravani
  */
-public class ShelterRole {
+
+public class ShelterRole extends Role {
     
-     @Override
+       @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
         return new ShelterWorkAreaJPanel(userProcessContainer, account, (ShelterOrganization)organization, enterprise, business);
     }
     
 }
-    
-

@@ -10,9 +10,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author bunny
+ *  @author bunny
  */
-public class SupplierOrganization {
+
+
+public class SupplierOrganization extends Organization{
     
     public SupplierOrganization() {
         super(Organization.Type.SupplierFoodOrganization.getValue());
@@ -24,6 +26,4 @@ public class SupplierOrganization {
         roles.add(new SupplierRole());
         return roles;
     }
-    
-    
 }

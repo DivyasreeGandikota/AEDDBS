@@ -9,10 +9,13 @@ import Business.Enterprise.EnterpriseDirectory;
 
 /**
  *
- * @author Sai Sravani
+ *  @author Sai Sravani
  */
+
 public class Network {
-     private String name;
+    
+    private String name;
+    
     private EnterpriseDirectory enterpriseDirectory;
     
     public Network(){
@@ -36,4 +39,3 @@ public class Network {
     }
     
 }
-    

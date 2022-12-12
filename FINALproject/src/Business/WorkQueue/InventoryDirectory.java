@@ -13,14 +13,12 @@ import java.util.ArrayList;
  */
 public class InventoryDirectory {
     
-    public static ArrayList<Inventory> inventoryList  = new ArrayList<>();
-    private InventoryDirectory newInventoryList;
-    
-    
+   public static ArrayList<Inventory> inventoryList  = new ArrayList<>();
+   private InventoryDirectory newInventoryList;
+     
    static InventoryDirectory iDir=null;
      
-    private InventoryDirectory() {
-        
+   private InventoryDirectory() {
      	Inventory inv1  = new Inventory("101", "Bread","Bakery Products","Available",100);
         Inventory inv2  = new Inventory("102", "Muffin","Bakery Products","Available",100);
         Inventory inv3  = new Inventory("103", "Cakes","Bakery Products","Available",100);
@@ -62,7 +60,6 @@ public class InventoryDirectory {
     }
 
     public static ArrayList<Inventory> getInventoryList() {
-        
         if(iDir==null)
         {
             iDir=new InventoryDirectory();
@@ -79,5 +76,4 @@ public class InventoryDirectory {
         return inventoryList;
     }
 
-    
 }

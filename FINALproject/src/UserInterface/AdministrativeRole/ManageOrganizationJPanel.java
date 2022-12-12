@@ -4,6 +4,20 @@
  */
 package UserInterface.AdministrativeRole;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.DistributorOrganization;
+import Business.Organization.NGOAdminOrganization;
+import Business.Organization.Organization;
+import Business.Organization.Organization.Type;
+import Business.Organization.OrganizationDirectory;
+import Business.Organization.QualityOrganization;
+import Business.Organization.ShelterOrganization;
+import Business.Organization.SupplierOrganization;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author db
@@ -13,8 +27,21 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageOrganizationJPanel
      */
+    private JPanel userProcessContainer;
+    private OrganizationDirectory organizationDirectory;
+    private Enterprise enterprise;
+    
     public ManageOrganizationJPanel() {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.organizationDirectory = organizationDirectory;
+        this.enterprise = enterprise;
+        populateTable();
+        populateComboBox();
+    }
+
+    ManageOrganizationJPanel(JPanel userProcessContainer, OrganizationDirectory organizationDirectory, Enterprise enterprise) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -134,13 +161,27 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private void btnAddOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrganizationActionPerformed
 
-        Type type = (Type) organizationJComboBox.getSelectedItem();
+         Type type = (Type) organizationJComboBox.getSelectedItem();
         organizationDirectory.createOrganization(type);
         populateTable();
 
         JOptionPane.showMessageDialog(null, "Organization added successfully!");
     }//GEN-LAST:event_btnAddOrganizationActionPerformed
+private void populateTable() {
 
+        DefaultTableModel model = (DefaultTableModel) tblOrganizations.getModel();
+
+        model.setRowCount(0);
+
+        for (Organization organization : organizationDirectory.getOrganizationList()) {
+            Object[] row = new Object[2];
+            row[0] = organization.getOrganizationID();
+            row[1] = organization.getName();
+
+            model.addRow(row);
+        }
+
+    }
     private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
         // TODO add your handling code here:
         /*
@@ -192,10 +233,93 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         }
         */
     }//GEN-LAST:event_organizationJComboBoxActionPerformed
+private void populateComboBox() {
+
+//        organizationJComboBox.removeAllItems();
+//        for (Type type : Organization.Type.values()){
+//            if (!type.getValue().equals(Type.Admin.getValue()))
+//                organizationJComboBox.addItem(type);
+//        } 
+        /*for (Type type : Organization.Type.values()){
+        System.out.println(type);
+             System.out.println(Enterprise.EnterpriseType.Rehabilitation);
+        if((!type.getValue().equals(Type.Admin.getValue())) && (enterprise.getEnterpriseType().equals("NGO"))){
+            organizationJComboBox.addItem(type);
+        }
+        else if ((!type.getValue().equals(Type.Admin.getValue()))&&(enterprise.getEnterpriseType().equals(Enterprise.EnterpriseType.Pharmacy))) {
+            organizationJComboBox.addItem(type);
+        }
+        else if ((!type.getValue().equals(Type.Admin.getValue()))&&(enterprise.getEnterpriseType().equals(Enterprise.EnterpriseType.DrugSupplier))) {
+            organizationJComboBox.addItem(type);
+        }
+         */
+        organizationJComboBox.removeAllItems();
+
+//        for (Organization.Type type : Organization.Type.values()) {
+//
+//            if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType1.NGO.getValue())) {
+//                if (type.getValue().equals(Organization.Type.NgoFoodOrganization.getValue())) {
+//                    organizationJComboBox.addItem(type);
+//                }
+//            } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType2.Shelter.getValue())) {
+//                if (type.getValue().equals(Organization.Type.ShelterFoodOrganization.getValue())) {
+//                    organizationJComboBox.addItem(type);
+//                }
+//            } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType3.Distributor.getValue())) {
+//                if (type.getValue().equals(Organization.Type.DistributorFoodOrganization.getValue())) {
+//                    organizationJComboBox.addItem(type);
+//                }
+//            } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType4.QualityCheck.getValue())) {
+//                if (type.getValue().equals(Organization.Type.QualityCheckFoodOrganization.getValue())) {
+//                    organizationJComboBox.addItem(type);
+//                }
+//            } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType5.Supplier.getValue())) {
+//                if (type.getValue().equals(Organization.Type.SupplierFoodOrganization.getValue())) {
+//                    organizationJComboBox.addItem(type);
+//                }
+//            }
+//
+//        }
+//        
+//         System.out.println(enterprise.getEnterpriseType().toString()==(Enterprise.EnterpriseType.Shelter)+"check");
+//        if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.NGO) {
+//         
+//            organizationJComboBox.addItem(Organization.Type.NgoFoodOrganization);
+//           
+//        } else if (enterprise.getEnterpriseType()== Enterprise.EnterpriseType.Distributor) {
+//            organizationJComboBox.addItem(Organization.Type.DistributorFoodOrganization);
+//        } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.QualityCheck) {
+//            organizationJComboBox.addItem(Organization.Type.QualityCheckFoodOrganization);
+//        } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Shelter) {
+//               System.out.println("Shelter check");
+//            organizationJComboBox.addItem(Organization.Type.ShelterFoodOrganization);
+//        } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Supplier) {
+//          
+//            organizationJComboBox.addItem(Organization.Type.SupplierFoodOrganization);
+//            
+//        }
+        System.out.println("yegdc" + enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType1.NGO.getValue()));
+         System.out.println("yecfghgdc" + enterprise.getEnterpriseType().getValue());
+        
+          System.out.println("yfrtdrecfggvegdc" + Enterprise.EnumType1.NGO.getValue());
+        
+        
+        if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType1.NGO.getValue())) {
+            organizationJComboBox.addItem(Organization.Type.NgoFoodOrganization);
+        } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType2.Shelter.getValue())) {
+            organizationJComboBox.addItem(Organization.Type.ShelterFoodOrganization);
+        } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType3.Distributor.getValue())) {
+            organizationJComboBox.addItem(Organization.Type.DistributorFoodOrganization);
+        } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType4.QualityCheck.getValue())) {
+            organizationJComboBox.addItem(Organization.Type.QualityCheckFoodOrganization);
+        } else if (enterprise.getEnterpriseType().getValue().equals(Enterprise.EnumType5.Supplier.getValue())) {
+            organizationJComboBox.addItem(Organization.Type.SupplierFoodOrganization);
+        }
+}
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-        userProcessContainer.remove(this);
+       userProcessContainer.remove(this);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
 

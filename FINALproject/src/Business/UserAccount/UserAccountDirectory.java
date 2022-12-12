@@ -7,14 +7,13 @@ package Business.UserAccount;
 import Business.Employee.Employee;
 import Business.Role.Role;
 import java.util.ArrayList;
-import javax.management.relation.Role;
 
 /**
  *
- * @author bunny
+ *  @author bunny
  */
+
 public class UserAccountDirectory {
-    
     
     private ArrayList<UserAccount> userAccountList;
 
@@ -44,11 +43,12 @@ public class UserAccountDirectory {
         return userAccount;
     }
     
-     public boolean checkIfUsernameIsUnique(String username){
+    public boolean checkIfUsernameIsUnique(String username){
         for (UserAccount ua : userAccountList){
             if (ua.getUsername().equals(username))
                 return false;
         }
         return true;
     }
+    
 }

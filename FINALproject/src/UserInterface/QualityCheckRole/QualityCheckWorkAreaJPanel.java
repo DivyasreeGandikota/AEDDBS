@@ -4,6 +4,20 @@
  */
 package UserInterface.QualityCheckRole;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.NGOAdminOrganization;
+import Business.Organization.QualityOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.FoodRequirementRequest;
+import Business.WorkQueue.Products;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author bunny
@@ -13,10 +27,44 @@ public class QualityCheckWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form QualityCheckWorkAreaJPanel
      */
-    public QualityCheckWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private EcoSystem business;
+    private UserAccount userAccount;
+    private Enterprise enterprise;
+    private NGOAdminOrganization ngoOrganization;
+    private QualityOrganization qualityOrganization;
+    
+     //Organization organization,Enterprise enterprise, EcoSystem business
+    //JPanel userProcessContainer, UserAccount account, QualityOrganization qualityOrganization, Enterprise enterprise
+    
+    public QualityCheckWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, QualityOrganization qualityOrganization, Enterprise enterprise, EcoSystem business) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = account;
+        this.business = business;
+        this.enterprise=enterprise;
+        this.qualityOrganization = (QualityOrganization)qualityOrganization;
+        
+        populateTable();
     }
 
+    public void populateTable() {
+        
+        DefaultTableModel model = (DefaultTableModel)workRequestJTable.getModel();
+        
+        model.setRowCount(0);
+      
+        for( WorkRequest request : qualityOrganization.getWorkQueue().getWorkRequestList())
+        {
+            Object[] row = new Object[4];
+            row[0] = request;
+            row[1] = request.getSender().getEmployee().getName();
+            row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[3] = request.getStatus();
+            
+            model.addRow(row);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,72 +74,20 @@ public class QualityCheckWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        assignJButton = new javax.swing.JButton();
-        processJButton = new javax.swing.JButton();
-        refreshJButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblProducts = new javax.swing.JTable();
-        showProductBtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblProducts = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        showProductBtn = new javax.swing.JButton();
+        processJButton = new javax.swing.JButton();
+        refreshJButton = new javax.swing.JButton();
+        assignJButton = new javax.swing.JButton();
 
-        assignJButton.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        assignJButton.setText("Assign Work Request");
-        assignJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignJButtonActionPerformed(evt);
-            }
-        });
+        setBackground(new java.awt.Color(0, 51, 102));
 
-        processJButton.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        processJButton.setText("Process Work Request");
-        processJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                processJButtonActionPerformed(evt);
-            }
-        });
-
-        refreshJButton.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        refreshJButton.setText("Refresh");
-        refreshJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshJButtonActionPerformed(evt);
-            }
-        });
-
-        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Food Type", "Product", "Quantity"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tblProducts);
-
-        showProductBtn.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        showProductBtn.setText("Display Products");
-        showProductBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showProductBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Bodoni MT", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Work Request");
-
-        jLabel2.setFont(new java.awt.Font("Bodoni MT", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Products");
 
@@ -119,6 +115,64 @@ public class QualityCheckWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(workRequestJTable);
+
+        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Food Type", "Product", "Quantity"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblProducts);
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Work Request");
+
+        showProductBtn.setBackground(new java.awt.Color(255, 255, 255));
+        showProductBtn.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        showProductBtn.setText("Display Products");
+        showProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showProductBtnActionPerformed(evt);
+            }
+        });
+
+        processJButton.setBackground(new java.awt.Color(255, 255, 255));
+        processJButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        processJButton.setText("Process Work Request");
+        processJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processJButtonActionPerformed(evt);
+            }
+        });
+
+        refreshJButton.setBackground(new java.awt.Color(255, 255, 255));
+        refreshJButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        refreshJButton.setText("Refresh");
+        refreshJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshJButtonActionPerformed(evt);
+            }
+        });
+
+        assignJButton.setBackground(new java.awt.Color(255, 255, 255));
+        assignJButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        assignJButton.setText("Assign Work Request");
+        assignJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -152,7 +206,7 @@ public class QualityCheckWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(refreshJButton)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,28 +221,36 @@ public class QualityCheckWorkAreaJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
+    private void showProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showProductBtnActionPerformed
 
         int selectedRow = workRequestJTable.getSelectedRow();
-
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a request!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a request");
         }
 
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+        model.setRowCount(0);model.setRowCount(0);
+        // FoodRequirementRequest distrequest = (FoodRequirementRequest)workRequestJTable.getValueAt(selectedRow, 0);
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
 
-        if(request.getStatus().equalsIgnoreCase("Sent to Quality"))
-        {
-            if(request.getReceiver()==null){
-                request.setReceiver(userAccount);
-            }
-
-            request.setStatus("Pending");
-            populateTable();
-        }
-
-    }//GEN-LAST:event_assignJButtonActionPerformed
+        // for (WorkRequest request1 : userAccount.getWorkQueue().getWorkRequestList())
+        // {
+            //  if (request1=request)
+            //{
+                ArrayList<Products> productList = ((FoodRequirementRequest) request).getProductList();
+                if (productList!=null){
+                    for (Products p : productList) {
+                        Object row[] = new Object[3];
+                        row[0] = p;
+                        row[1] = p.getProductName();
+                        row[2] = p.getQuantity();
+                        model.addRow(row);
+                        //((DefaultTableModel) tblProducts.getModel()).addRow(row);
+                    }
+                }
+                // }
+            // }
+    }//GEN-LAST:event_showProductBtnActionPerformed
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
 
@@ -223,36 +285,28 @@ public class QualityCheckWorkAreaJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Requests Updated!");
     }//GEN-LAST:event_refreshJButtonActionPerformed
 
-    private void showProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showProductBtnActionPerformed
+    private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
 
         int selectedRow = workRequestJTable.getSelectedRow();
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Please select a request");
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-        model.setRowCount(0);model.setRowCount(0);
-        // FoodRequirementRequest distrequest = (FoodRequirementRequest)workRequestJTable.getValueAt(selectedRow, 0);
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
 
-        // for (WorkRequest request1 : userAccount.getWorkQueue().getWorkRequestList())
-        // {
-            //  if (request1=request)
-            //{
-                ArrayList<Products> productList = ((FoodRequirementRequest) request).getProductList();
-                if (productList!=null){
-                    for (Products p : productList) {
-                        Object row[] = new Object[3];
-                        row[0] = p;
-                        row[1] = p.getProductName();
-                        row[2] = p.getQuantity();
-                        model.addRow(row);
-                        //((DefaultTableModel) tblProducts.getModel()).addRow(row);
-                    }
-                }
-                // }
-            // }
-    }//GEN-LAST:event_showProductBtnActionPerformed
+        if(request.getStatus().equalsIgnoreCase("Sent to Quality"))
+        {
+            if(request.getReceiver()==null){
+                request.setReceiver(userAccount);
+            }
+
+            request.setStatus("Pending");
+            populateTable();
+        }
+
+    }//GEN-LAST:event_assignJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

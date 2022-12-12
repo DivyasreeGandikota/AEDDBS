@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author bunny
+ *  @author bunny
  */
-public class QualityOrganization {
-    
-    
+
+public class QualityOrganization extends Organization{
+   
      public QualityOrganization() {
         super(Organization.Type.QualityCheckFoodOrganization.getValue());
     }

@@ -10,8 +10,9 @@ import java.util.Date;
 
 /**
  *
- * @author Sai Sravani
+ *  @author Sai Sravani
  */
+
 public class WorkRequest {
     
     private String message;
@@ -75,7 +76,5 @@ public class WorkRequest {
     @Override
     public String toString(){
     return this.message;
-    }
-    
-    
+    }   
 }

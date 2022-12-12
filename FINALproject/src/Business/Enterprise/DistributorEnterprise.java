@@ -10,12 +10,13 @@ import java.util.ArrayList;
 
 /**
  *
- * @author db
+ *  @author db
  */
-public class DistributorEnterprise {
+
+public class DistributorEnterprise extends Enterprise {
+    
     public DistributorEnterprise(String name){
         super(name,Enterprise.EnterpriseType.Distributor);
-        
     }
     
     @Override

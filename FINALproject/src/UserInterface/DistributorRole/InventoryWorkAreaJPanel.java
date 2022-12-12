@@ -4,6 +4,13 @@
  */
 package UserInterface.DistributorRole;
 
+import Business.WorkQueue.FoodRequirementRequest;
+import Business.WorkQueue.Inventory;
+import Business.WorkQueue.Products;
+import Business.WorkQueue.WorkRequest;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author db
@@ -13,9 +20,36 @@ public class InventoryWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form InventoryWorkAreaJPanel
      */
+     private JPanel userProcessContainer;
+    private WorkRequest request;
+    private ArrayList<Inventory> inventoryList;
+    
+    
     public InventoryWorkAreaJPanel() {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.request= request;
+        this.inventoryList = inventoryList;
+        populateTable();
     }
+    private void populateTable() 
+     {
+       DefaultTableModel model = (DefaultTableModel)tblInventory.getModel();
+       model.setRowCount(0);
+
+         if (inventoryList!=null){
+            for (Inventory p : inventoryList) {
+                Object row[] = new Object[5];
+                row[0] = p;
+                row[1] = p.getProductType();
+                row[2] = p.getProductName();
+                row[3] = p.getAvailability();
+                row[4] = p.getQuantity();
+                
+                model.addRow(row);
+            }    
+        }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -178,12 +212,13 @@ public class InventoryWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)
+                        .addComponent(jButton3)
+                        .addComponent(jButton4)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(103, Short.MAX_VALUE))

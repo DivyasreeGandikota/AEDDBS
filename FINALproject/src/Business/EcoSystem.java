@@ -14,11 +14,11 @@ import java.util.ArrayList;
  *
  * @author db
  */
-public class EcoSystem  extends Organization{
+
+public class EcoSystem extends Organization{
     
-       private static EcoSystem business;
+    private static EcoSystem business;
     private ArrayList<Network> networkList;
-    
     
     public static EcoSystem getInstance(){
         if(business==null){
@@ -32,12 +32,14 @@ public class EcoSystem  extends Organization{
         networkList.add(network);
         return network;
     }
+    
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roleList=new ArrayList<Role>();
         roleList.add(new SystemAdminRole());
         return roleList;
     }
+    
     private EcoSystem(){
         super(null);
         networkList=new ArrayList<Network>();
@@ -60,6 +62,4 @@ public class EcoSystem  extends Organization{
         }
         return true;
     }
-    
-            
 }

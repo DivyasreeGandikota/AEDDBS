@@ -4,18 +4,18 @@
  */
 package Business.Organization;
 
-import java.util.ArrayList;
-import javax.management.relation.Role;
 import Business.Role.DistributorRole;
 import Business.Role.Role;
+import java.util.ArrayList;
 
 /**
  *
  * @author bunny
  */
+
 public class DistributorOrganization extends Organization{
-    
-    public DistributorOrganization() {
+ 
+     public DistributorOrganization() {
         super(Organization.Type.DistributorFoodOrganization.getValue());
     }
     
@@ -25,8 +25,4 @@ public class DistributorOrganization extends Organization{
         roles.add(new DistributorRole());
         return roles;
     }
-    
-    
-    
-    
 }

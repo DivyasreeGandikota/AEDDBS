@@ -4,19 +4,18 @@
  */
 package Business.Organization;
 
-import java.util.ArrayList;
-import javax.management.relation.Role;
 import Business.Role.AdminRole;
 import Business.Role.Role;
+import java.util.ArrayList;
 
 /**
  *
- * @author bunny
+ *@author bunny
  */
-public class AdminOrganization {
+
+public class AdminOrganization extends Organization{
     
-    
-    public AdminOrganization() {
+     public AdminOrganization() {
         super(Organization.Type.Admin.getValue());
     }
     
@@ -26,7 +25,4 @@ public class AdminOrganization {
         roles.add(new AdminRole());
         return roles;
     }
-    
-    
-    
 }

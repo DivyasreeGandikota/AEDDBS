@@ -10,6 +10,7 @@ import java.util.ArrayList;
  *
  * @author bunny
  */
+
 public class OrganizationDirectory {
     
     private ArrayList<Organization> organizationList;
@@ -52,7 +53,5 @@ public class OrganizationDirectory {
         
         return organization;
     }
-    
-    
     
 }

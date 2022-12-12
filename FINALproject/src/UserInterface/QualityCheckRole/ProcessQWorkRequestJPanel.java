@@ -4,6 +4,24 @@
  */
 package UserInterface.QualityCheckRole;
 
+import Business.WorkQueue.FoodRequirementRequest;
+import Business.WorkQueue.Products;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.print.PrinterException;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author bunny
@@ -13,8 +31,74 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ProcessQWorkRequestJPanel
      */
-    public ProcessQWorkRequestJPanel() {
+    private JPanel userProcessContainer;
+    private FoodRequirementRequest request;
+
+    
+    public ProcessQWorkRequestJPanel(JPanel userProcessContainer, FoodRequirementRequest request) {
         initComponents();
+         this.userProcessContainer = userProcessContainer;
+        this.request = request;
+        groupButton();
+        populateTable();
+        resultJTextField.setEnabled(false);
+        resultJTextField.setText("AWAITING RESULT ");
+        finalProgressBar.setEnabled(false);
+        chemicalProgressBar.setEnabled(false);
+        nutritionProgressBar.setEnabled(false);
+        spoilageProgressBar.setEnabled(false);
+        microbioProgressBar.setEnabled(false);
+        qualityCheckReport.setEditable(false);
+    }
+ public void populateTable() {
+
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+
+        model.setRowCount(0);
+
+        ArrayList<Products> productList = ((FoodRequirementRequest) request).getProductList();
+        if (productList != null) {
+            for (Products p : productList) {
+                Object row[] = new Object[3];
+                row[0] = p;
+                row[1] = p.getProductName();
+                row[2] = p.getQuantity();
+                model.addRow(row);
+
+            }
+        }
+    }
+ 
+ 
+    private void groupButton() {
+
+        ButtonGroup bg1 = new ButtonGroup();
+        bg1.add(radioQ1Yes);
+        bg1.add(radioQ1No);
+
+        ButtonGroup bg2 = new ButtonGroup();
+        bg2.add(radioQ2Yes);
+        bg2.add(radioQ2No);
+
+        ButtonGroup bg3 = new ButtonGroup();
+        bg3.add(radioQ3Yes);
+        bg3.add(radioQ3No);
+
+        ButtonGroup bg4 = new ButtonGroup();
+        bg4.add(radioQ4Yes);
+        bg4.add(radioQ4No);
+
+        ButtonGroup bg5 = new ButtonGroup();
+        bg5.add(radioQ5Yes);
+        bg5.add(radioQ5No);
+
+        ButtonGroup bg6 = new ButtonGroup();
+        bg6.add(radioQ6Yes);
+        bg6.add(radioQ6No);
+
+        ButtonGroup bg7 = new ButtonGroup();
+        bg7.add(radioQ7Yes);
+        bg7.add(radioQ7No);
     }
 
     /**
@@ -26,116 +110,56 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        radioQ5Yes = new javax.swing.JRadioButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        resetBtn = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
-        submitJButton = new javax.swing.JButton();
-        backJButton = new javax.swing.JButton();
-        radioQ5No = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        qualityCheckReport = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        radioQ6Yes = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProducts = new javax.swing.JTable();
-        jLabel19 = new javax.swing.JLabel();
-        radioQ1Yes = new javax.swing.JRadioButton();
-        btnGenerateReport = new javax.swing.JButton();
-        jLabel20 = new javax.swing.JLabel();
-        btnSave = new javax.swing.JButton();
-        radioQ6No = new javax.swing.JRadioButton();
-        radioQ1No = new javax.swing.JRadioButton();
-        jLabel21 = new javax.swing.JLabel();
-        radioQ3Yes = new javax.swing.JRadioButton();
-        jLabel22 = new javax.swing.JLabel();
-        radioQ2Yes = new javax.swing.JRadioButton();
-        radioQ7Yes = new javax.swing.JRadioButton();
-        radioQ3No = new javax.swing.JRadioButton();
-        radioQ7No = new javax.swing.JRadioButton();
-        radioQ2No = new javax.swing.JRadioButton();
-        resultJTextField = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        finalProgressBar = new javax.swing.JProgressBar();
-        jLabel16 = new javax.swing.JLabel();
-        chemicalProgressBar = new javax.swing.JProgressBar();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        nutritionProgressBar = new javax.swing.JProgressBar();
-        microbioProgressBar = new javax.swing.JProgressBar();
-        radioQ4No = new javax.swing.JRadioButton();
-        spoilageProgressBar = new javax.swing.JProgressBar();
-        radioQ4Yes = new javax.swing.JRadioButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        resultJTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        radioQ1No = new javax.swing.JRadioButton();
+        jLabel8 = new javax.swing.JLabel();
+        radioQ3Yes = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
+        spoilageProgressBar = new javax.swing.JProgressBar();
+        radioQ1Yes = new javax.swing.JRadioButton();
+        microbioProgressBar = new javax.swing.JProgressBar();
+        radioQ2No = new javax.swing.JRadioButton();
+        nutritionProgressBar = new javax.swing.JProgressBar();
+        jLabel12 = new javax.swing.JLabel();
+        chemicalProgressBar = new javax.swing.JProgressBar();
+        radioQ2Yes = new javax.swing.JRadioButton();
+        finalProgressBar = new javax.swing.JProgressBar();
+        radioQ3No = new javax.swing.JRadioButton();
+        radioQ6No = new javax.swing.JRadioButton();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        radioQ7No = new javax.swing.JRadioButton();
+        jLabel15 = new javax.swing.JLabel();
+        radioQ7Yes = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        backJButton = new javax.swing.JButton();
+        submitJButton = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        qualityCheckReport = new javax.swing.JTextArea();
+        radioQ4No = new javax.swing.JRadioButton();
+        btnSave = new javax.swing.JButton();
+        radioQ4Yes = new javax.swing.JRadioButton();
+        btnGenerateReport = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        radioQ5Yes = new javax.swing.JRadioButton();
+        radioQ5No = new javax.swing.JRadioButton();
+        jLabel17 = new javax.swing.JLabel();
+        radioQ6Yes = new javax.swing.JRadioButton();
+        jLabel19 = new javax.swing.JLabel();
 
-        radioQ5Yes.setText("YES");
-        radioQ5Yes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ5YesActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("MICROBIOLOGICAL TEST ");
-
-        jLabel17.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel17.setText("Are all products free from Process Generated chemical? (polyaromatic ");
-
-        resetBtn.setText("Reset");
-        resetBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel18.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel18.setText(" hydrocarbons (PAHs) 4-methyl imidazole (4-MEI))  ");
-
-        submitJButton.setText("Submit Result");
-        submitJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitJButtonActionPerformed(evt);
-            }
-        });
-
-        backJButton.setText("Back");
-        backJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backJButtonActionPerformed(evt);
-            }
-        });
-
-        radioQ5No.setText("NO");
-        radioQ5No.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ5NoActionPerformed(evt);
-            }
-        });
-
-        qualityCheckReport.setColumns(20);
-        qualityCheckReport.setRows(5);
-        jScrollPane1.setViewportView(qualityCheckReport);
-
-        jLabel1.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Result");
-
-        radioQ6Yes.setText("YES");
-        radioQ6Yes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ6YesActionPerformed(evt);
-            }
-        });
+        setBackground(new java.awt.Color(0, 51, 102));
 
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,9 +179,45 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblProducts);
 
-        jLabel19.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel19.setText("Are all products free from Spoilage Indicator? (Generic E. coli and coliforms,");
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Result");
+
+        jLabel3.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("FINAL RESULT");
+
+        resultJTextField.setBackground(new java.awt.Color(51, 255, 0));
+        resultJTextField.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        resultJTextField.setForeground(new java.awt.Color(102, 204, 0));
+
+        jLabel9.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("SPOILAGE INDICATOR TEST");
+
+        radioQ1No.setText("NO");
+        radioQ1No.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioQ1NoActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("CHEMICAL TEST  ");
+
+        radioQ3Yes.setText("YES");
+        radioQ3Yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioQ3YesActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("NUTRITIONAL TEST  ");
+
+        spoilageProgressBar.setStringPainted(true);
 
         radioQ1Yes.setText("YES");
         radioQ1Yes.addActionListener(new java.awt.event.ActionListener() {
@@ -166,21 +226,40 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnGenerateReport.setText("Generate Summarized Report");
-        btnGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+        microbioProgressBar.setStringPainted(true);
+
+        radioQ2No.setText("NO");
+        radioQ2No.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerateReportActionPerformed(evt);
+                radioQ2NoActionPerformed(evt);
             }
         });
 
-        jLabel20.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel20.setText(" and mould, sporeformers, acidophiles, thermophiles,mesophiles, aerobic and anaerobic plate counts )  ");
+        nutritionProgressBar.setStringPainted(true);
 
-        btnSave.setText("Download Report");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel12.setText(" Clostridium, Enterobacter, Listeria, Salmonella, Shigella, Legionella)  ");
+
+        chemicalProgressBar.setOpaque(true);
+        chemicalProgressBar.setStringPainted(true);
+
+        radioQ2Yes.setText("YES");
+        radioQ2Yes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                radioQ2YesActionPerformed(evt);
+            }
+        });
+
+        finalProgressBar.setBackground(new java.awt.Color(102, 255, 102));
+        finalProgressBar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        finalProgressBar.setForeground(new java.awt.Color(102, 204, 0));
+        finalProgressBar.setStringPainted(true);
+
+        radioQ3No.setText("NO");
+        radioQ3No.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioQ3NoActionPerformed(evt);
             }
         });
 
@@ -191,48 +270,17 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        radioQ1No.setText("NO");
-        radioQ1No.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ1NoActionPerformed(evt);
-            }
-        });
+        jLabel20.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel20.setText(" and mould, sporeformers, acidophiles, thermophiles,mesophiles, aerobic and anaerobic plate counts )  ");
 
-        jLabel21.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel21.setText("Is the Fat profiles (saturated, mono, poly, trans fats) Protein and carbohydrate content");
-
-        radioQ3Yes.setText("YES");
-        radioQ3Yes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ3YesActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(204, 204, 204));
         jLabel22.setText(" Cholesterol Sugar profile Dietary fiber Vitamins, minerals, electrolytes appropriate ?");
 
-        radioQ2Yes.setText("YES");
-        radioQ2Yes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ2YesActionPerformed(evt);
-            }
-        });
-
-        radioQ7Yes.setText("YES");
-        radioQ7Yes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ7YesActionPerformed(evt);
-            }
-        });
-
-        radioQ3No.setText("NO");
-        radioQ3No.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ3NoActionPerformed(evt);
-            }
-        });
+        jLabel21.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel21.setText("Is the Fat profiles (saturated, mono, poly, trans fats) Protein and carbohydrate content");
 
         radioQ7No.setText("NO");
         radioQ7No.addActionListener(new java.awt.event.ActionListener() {
@@ -241,52 +289,57 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        radioQ2No.setText("NO");
-        radioQ2No.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioQ2NoActionPerformed(evt);
-            }
-        });
-
-        resultJTextField.setBackground(new java.awt.Color(51, 255, 0));
-        resultJTextField.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        resultJTextField.setForeground(new java.awt.Color(102, 204, 0));
-
-        jLabel12.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel12.setText(" Clostridium, Enterobacter, Listeria, Salmonella, Shigella, Legionella)  ");
-
-        jLabel3.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("FINAL RESULT");
-
-        jLabel15.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(204, 204, 204));
         jLabel15.setText("Are all products free from Food Adulteration? ( melamine, cyanuric acid");
 
-        finalProgressBar.setBackground(new java.awt.Color(102, 255, 102));
-        finalProgressBar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        finalProgressBar.setForeground(new java.awt.Color(102, 204, 0));
-        finalProgressBar.setStringPainted(true);
+        radioQ7Yes.setText("YES");
+        radioQ7Yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioQ7YesActionPerformed(evt);
+            }
+        });
 
-        jLabel16.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel16.setText(" Allergens, including gluten,Plasticizer contaminants,Colors, dyes, and additives  )  ");
-
-        chemicalProgressBar.setOpaque(true);
-        chemicalProgressBar.setStringPainted(true);
-
-        jLabel2.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("Are the products within the expiry date? ");
 
-        jLabel11.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel16.setText(" Allergens, including gluten,Plasticizer contaminants,Colors, dyes, and additives  )  ");
+
+        jLabel10.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("MICROBIOLOGICAL TEST ");
+
+        backJButton.setText("Back");
+        backJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backJButtonActionPerformed(evt);
+            }
+        });
+
+        submitJButton.setText("Submit Result");
+        submitJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitJButtonActionPerformed(evt);
+            }
+        });
+
+        resetBtn.setText("Reset");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
         jLabel11.setText("Are all products free from Pathogens? (Campylobacter, Bacillus, Yersinia");
 
-        nutritionProgressBar.setStringPainted(true);
-
-        microbioProgressBar.setStringPainted(true);
+        qualityCheckReport.setColumns(20);
+        qualityCheckReport.setRows(5);
+        jScrollPane1.setViewportView(qualityCheckReport);
 
         radioQ4No.setText("NO");
         radioQ4No.addActionListener(new java.awt.event.ActionListener() {
@@ -295,7 +348,12 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        spoilageProgressBar.setStringPainted(true);
+        btnSave.setText("Download Report");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         radioQ4Yes.setText("YES");
         radioQ4Yes.addActionListener(new java.awt.event.ActionListener() {
@@ -304,25 +362,53 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("NUTRITIONAL TEST  ");
+        btnGenerateReport.setText("Generate Summarized Report");
+        btnGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateReportActionPerformed(evt);
+            }
+        });
 
-        jLabel13.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(204, 204, 204));
         jLabel13.setText("Are all products free from contaminants? (Organophosphates,Heavy metals");
 
-        jLabel8.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("CHEMICAL TEST  ");
-
-        jLabel14.setFont(new java.awt.Font("Bodoni MT", 1, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 204, 204));
         jLabel14.setText("Antibiotics, antimicrobials, growth regulators,Pesticides, fumigants, herbicides, insecticides)  ");
 
-        jLabel9.setFont(new java.awt.Font("Bodoni MT", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("SPOILAGE INDICATOR TEST");
+        jLabel18.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel18.setText(" hydrocarbons (PAHs) 4-methyl imidazole (4-MEI))  ");
+
+        radioQ5Yes.setText("YES");
+        radioQ5Yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioQ5YesActionPerformed(evt);
+            }
+        });
+
+        radioQ5No.setText("NO");
+        radioQ5No.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioQ5NoActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel17.setText("Are all products free from Process Generated chemical? (polyaromatic ");
+
+        radioQ6Yes.setText("YES");
+        radioQ6Yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioQ6YesActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel19.setText("Are all products free from Spoilage Indicator? (Generic E. coli and coliforms,");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -333,32 +419,9 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(286, 286, 286)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radioQ1Yes)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addComponent(radioQ1No))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel16))
-                                .addGap(73, 73, 73)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addComponent(radioQ2No))
-                                    .addComponent(radioQ2Yes)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(100, 100, 100)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radioQ3Yes)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addComponent(radioQ3No))))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
                             .addComponent(jLabel12)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +460,24 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
                                     .addComponent(radioQ7Yes)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(40, 40, 40)
-                                        .addComponent(radioQ7No)))))
+                                        .addComponent(radioQ7No))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioQ1Yes)
+                                    .addComponent(radioQ2Yes)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(40, 40, 40)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(radioQ1No)
+                                            .addComponent(radioQ2No))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(100, 100, 100)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(radioQ3Yes)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(40, 40, 40)
+                                            .addComponent(radioQ3No))))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,21 +536,19 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
                     .addComponent(backJButton))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel2))
+                            .addComponent(jLabel2)
                             .addComponent(radioQ1Yes)
                             .addComponent(radioQ1No))
-                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
                                 .addComponent(jLabel15)
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel16))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(radioQ2No)
                                     .addComponent(radioQ2Yes))))
@@ -563,11 +641,22 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
                         .addGap(5, 5, 5)
                         .addComponent(jLabel3))
                     .addComponent(finalProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void radioQ5YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ5YesActionPerformed
+    private void radioQ1NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ1NoActionPerformed
+        // TODO add your handling code here:
+        int value = 0;
+
+        finalProgressBar.setValue(value);
+        chemicalProgressBar.setValue(value);
+        nutritionProgressBar.setValue(value);
+        microbioProgressBar.setValue(value);
+        spoilageProgressBar.setValue(value);
+    }//GEN-LAST:event_radioQ1NoActionPerformed
+
+    private void radioQ3YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ3YesActionPerformed
         // TODO add your handling code here:
 
         int currentvalue = finalProgressBar.getValue();
@@ -575,10 +664,166 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
         finalProgressBar.setValue(newvalue);
 
         int internalvalue = 100;
-        //  int newinternalvalue=internalvalue-15;
+        microbioProgressBar.setValue(internalvalue);
+    }//GEN-LAST:event_radioQ3YesActionPerformed
+
+    private void radioQ1YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ1YesActionPerformed
+        // TODO add your handling code here:
+
+        int value = 15;
+        int internalvalue = 10;
+
+        finalProgressBar.setEnabled(true);
+        chemicalProgressBar.setEnabled(true);
+        nutritionProgressBar.setEnabled(true);
+        spoilageProgressBar.setEnabled(true);
+        microbioProgressBar.setEnabled(true);
+
+        finalProgressBar.setValue(value);
         chemicalProgressBar.setValue(internalvalue);
-        // nutritionProgressBar.setValue(internalvalue);
-    }//GEN-LAST:event_radioQ5YesActionPerformed
+        nutritionProgressBar.setValue(internalvalue);
+        finalProgressBar.setValue(internalvalue);
+    }//GEN-LAST:event_radioQ1YesActionPerformed
+
+    private void radioQ2NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ2NoActionPerformed
+        // TODO add your handling code here:
+
+        int value = 0;
+        //   int internalvalue=10;
+
+        finalProgressBar.setBackground(Color.red);
+        chemicalProgressBar.setBackground(Color.red);
+        nutritionProgressBar.setBackground(Color.red);
+        spoilageProgressBar.setBackground(Color.red);
+        microbioProgressBar.setBackground(Color.red);
+
+        finalProgressBar.setValue(value);
+        chemicalProgressBar.setValue(value);
+        nutritionProgressBar.setValue(value);
+        microbioProgressBar.setValue(value);
+        spoilageProgressBar.setValue(value);
+
+        // int currentvalue=finalProgressBar.getValue();
+        // int newvalue=currentvalue-15;
+        // finalProgressBar.setValue(newvalue);
+
+    }//GEN-LAST:event_radioQ2NoActionPerformed
+
+    private void radioQ2YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ2YesActionPerformed
+        // TODO add your handling code here:
+
+        int currentvalue = finalProgressBar.getValue();
+        int newvalue = currentvalue + 15;
+        finalProgressBar.setValue(newvalue);
+        int internalvalue = 50;
+        chemicalProgressBar.setValue(internalvalue);
+        nutritionProgressBar.setValue(internalvalue);
+    }//GEN-LAST:event_radioQ2YesActionPerformed
+
+    private void radioQ3NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ3NoActionPerformed
+        // TODO add your handling code here:
+        int value = 0;
+        //   int internalvalue=10;
+
+        // finalProgressBar.setEnabled(true);
+        finalProgressBar.setBackground(Color.red);
+        chemicalProgressBar.setBackground(Color.red);
+        nutritionProgressBar.setBackground(Color.red);
+        spoilageProgressBar.setBackground(Color.red);
+        microbioProgressBar.setBackground(Color.red);
+
+        finalProgressBar.setValue(value);
+        chemicalProgressBar.setValue(value);
+        nutritionProgressBar.setValue(value);
+        microbioProgressBar.setValue(value);
+        spoilageProgressBar.setValue(value);
+
+        // int currentvalue=finalProgressBar.getValue();
+        // int newvalue=currentvalue-15;
+        // finalProgressBar.setValue(newvalue);
+    }//GEN-LAST:event_radioQ3NoActionPerformed
+
+    private void radioQ6NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ6NoActionPerformed
+        // TODO add your handling code here:
+        int value = 0;
+        //   int internalvalue=10;
+
+        // finalProgressBar.setEnabled(true);
+        finalProgressBar.setBackground(Color.red);
+        chemicalProgressBar.setBackground(Color.red);
+        nutritionProgressBar.setBackground(Color.red);
+        spoilageProgressBar.setBackground(Color.red);
+        microbioProgressBar.setBackground(Color.red);
+
+        finalProgressBar.setValue(value);
+        chemicalProgressBar.setValue(value);
+        nutritionProgressBar.setValue(value);
+        microbioProgressBar.setValue(value);
+        spoilageProgressBar.setValue(value);
+
+        // int currentvalue=finalProgressBar.getValue();
+        // int newvalue=currentvalue-15;
+        // finalProgressBar.setValue(newvalue);
+    }//GEN-LAST:event_radioQ6NoActionPerformed
+
+    private void radioQ7NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ7NoActionPerformed
+        // TODO add your handling code here:
+        int value = 0;
+        //   int internalvalue=10;
+        resultJTextField.setText("NOT QUALIFIED ");
+        // finalProgressBar.setEnabled(true);
+        finalProgressBar.setBackground(Color.red);
+        chemicalProgressBar.setBackground(Color.red);
+        nutritionProgressBar.setBackground(Color.red);
+        spoilageProgressBar.setBackground(Color.red);
+        microbioProgressBar.setBackground(Color.red);
+
+        finalProgressBar.setValue(value);
+        chemicalProgressBar.setValue(value);
+        nutritionProgressBar.setValue(value);
+        microbioProgressBar.setValue(value);
+        spoilageProgressBar.setValue(value);
+
+        // int currentvalue=finalProgressBar.getValue();
+        // int newvalue=currentvalue-15;
+        // finalProgressBar.setValue(newvalue);
+    }//GEN-LAST:event_radioQ7NoActionPerformed
+
+    private void radioQ7YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ7YesActionPerformed
+        // TODO add your handling code here:
+
+        if (radioQ1Yes.isSelected() && radioQ2Yes.isSelected() && radioQ3Yes.isSelected() && radioQ4Yes.isSelected()
+            && radioQ5Yes.isSelected() && radioQ6Yes.isSelected() && radioQ7Yes.isSelected()) {
+            resultJTextField.setText("QUALIFIED");
+
+        }
+        int currentvalue = finalProgressBar.getValue();
+        int newvalue = currentvalue + 15;
+        finalProgressBar.setValue(newvalue);
+        finalProgressBar.setStringPainted(true);
+        finalProgressBar.setForeground(Color.white);
+        finalProgressBar.setBackground(Color.green);
+        finalProgressBar.setString("100% QUALIFIED ");
+        int internalvalue = 100;
+        nutritionProgressBar.setValue(internalvalue);
+    }//GEN-LAST:event_radioQ7YesActionPerformed
+
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        QualityCheckWorkAreaJPanel dwjp = (QualityCheckWorkAreaJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backJButtonActionPerformed
+
+    private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
+        request.setRequestResult(resultJTextField.getText());
+        request.setStatus("Completed");
+        JOptionPane.showMessageDialog(null, "Food Request Approved for Quality Check!");
+    }//GEN-LAST:event_submitJButtonActionPerformed
 
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
@@ -646,24 +891,7 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
         qualityCheckReport.setText("");
     }//GEN-LAST:event_resetBtnActionPerformed
 
-    private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
-        request.setRequestResult(resultJTextField.getText());
-        request.setStatus("Completed");
-        JOptionPane.showMessageDialog(null, "Food Request Approved for Quality Check!");
-    }//GEN-LAST:event_submitJButtonActionPerformed
-
-    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
-
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        QualityCheckWorkAreaJPanel dwjp = (QualityCheckWorkAreaJPanel) component;
-        dwjp.populateTable();
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-    }//GEN-LAST:event_backJButtonActionPerformed
-
-    private void radioQ5NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ5NoActionPerformed
+    private void radioQ4NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ4NoActionPerformed
         // TODO add your handling code here:
         int value = 0;
         //   int internalvalue=10;
@@ -684,35 +912,35 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
         // int currentvalue=finalProgressBar.getValue();
         // int newvalue=currentvalue-15;
         // finalProgressBar.setValue(newvalue);
-    }//GEN-LAST:event_radioQ5NoActionPerformed
+    }//GEN-LAST:event_radioQ4NoActionPerformed
 
-    private void radioQ6YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ6YesActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+        //*********************** Printing logic
+        try {
+
+            Boolean ppt = qualityCheckReport.print();
+            if (ppt) {
+                JOptionPane.showMessageDialog(null, "Done");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Printing");
+            }
+        } catch (PrinterException ex) {
+            Logger.getLogger(ProcessQWorkRequestJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void radioQ4YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ4YesActionPerformed
         // TODO add your handling code here:
 
         int currentvalue = finalProgressBar.getValue();
         int newvalue = currentvalue + 15;
         finalProgressBar.setValue(newvalue);
-        int internalvalue = 100;
-        spoilageProgressBar.setValue(internalvalue);
-    }//GEN-LAST:event_radioQ6YesActionPerformed
-
-    private void radioQ1YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ1YesActionPerformed
-        // TODO add your handling code here:
-
-        int value = 15;
-        int internalvalue = 10;
-
-        finalProgressBar.setEnabled(true);
-        chemicalProgressBar.setEnabled(true);
-        nutritionProgressBar.setEnabled(true);
-        spoilageProgressBar.setEnabled(true);
-        microbioProgressBar.setEnabled(true);
-
-        finalProgressBar.setValue(value);
+        int internalvalue = 70;
         chemicalProgressBar.setValue(internalvalue);
-        nutritionProgressBar.setValue(internalvalue);
-        finalProgressBar.setValue(internalvalue);
-    }//GEN-LAST:event_radioQ1YesActionPerformed
+    }//GEN-LAST:event_radioQ4YesActionPerformed
 
     private void btnGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportActionPerformed
 
@@ -776,80 +1004,28 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
         }
         //************************ End of radio button values
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
+        //  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        // LocalDateTime now = LocalDateTime.now();
 
-        qualityCheckReport.append("\t\t QUALITY CHECK REPORT \n"
-            + "\n Date of Quality Check : " + now +"\tResult :"+ resultJTextField.getText()
-            + "\n------------------------------------------------------------------------------------------------------------------------------"
-            + "\n1) Are the products within the expiry date? : " + radioText1 + "\n"
-            + "\n2) Are all products free from Food Adulteration? :" + radioText2 + "\n"
-            + "\n3) Are all products free from Pathogens? :" + radioText3 + "\n"
-            + "\n4) Are all products free from contaminants? :" + radioText4 + "\n"
-            + "\n5) Are all products free from Process Generated chemical? :" + radioText5 + "\n"
-            + "\n6) Are all products free from Spoilage Indicator? :" + radioText6 + "\n"
-            + "\n7) Is the Fat profiles Protein and carbohydrate content"+"\n" +"Cholesterol Sugar profile Dietary fiber Vitamins, minerals, electrolytes appropriate ?" + radioText7 + "\n"
-            + "--------------------------------------------------------------------------------------------------------------------------------"
-        );
+        //qualityCheckReport.append("\t\t QUALITY CHECK REPORT \n"
+            //+ "\n Date of Quality Check : " + now +"\tResult :"+ resultJTextField.getText()
+            //+ "\n------------------------------------------------------------------------------------------------------------------------------"
+            //+ "\n1) Are the products within the expiry date? : " + radioText1 + "\n"
+            //+ "\n2) Are all products free from Food Adulteration? :" + radioText2 + "\n"
+            //+ "\n3) Are all products free from Pathogens? :" + radioText3 + "\n"
+            //+ "\n4) Are all products free from contaminants? :" + radioText4 + "\n"
+            //+ "\n5) Are all products free from Process Generated chemical? :" + radioText5 + "\n"
+            //+ "\n6) Are all products free from Spoilage Indicator? :" + radioText6 + "\n"
+            //+ "\n7) Is the Fat profiles Protein and carbohydrate content"+"\n" +"Cholesterol Sugar profile Dietary fiber Vitamins, minerals, electrolytes appropriate ?" + radioText7 + "\n"
+            //+ "--------------------------------------------------------------------------------------------------------------------------------"
+            //);
         qualityCheckReport.setFont(new Font("Serif", Font.ITALIC, 16));
 
         btnGenerateReport.setEnabled(false);
 
     }//GEN-LAST:event_btnGenerateReportActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
-        //*********************** Printing logic
-        try {
-
-            Boolean ppt = qualityCheckReport.print();
-            if (ppt) {
-                JOptionPane.showMessageDialog(null, "Done");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Printing");
-            }
-        } catch (PrinterException ex) {
-            Logger.getLogger(ProcessQWorkRequestJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void radioQ6NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ6NoActionPerformed
-        // TODO add your handling code here:
-        int value = 0;
-        //   int internalvalue=10;
-
-        // finalProgressBar.setEnabled(true);
-        finalProgressBar.setBackground(Color.red);
-        chemicalProgressBar.setBackground(Color.red);
-        nutritionProgressBar.setBackground(Color.red);
-        spoilageProgressBar.setBackground(Color.red);
-        microbioProgressBar.setBackground(Color.red);
-
-        finalProgressBar.setValue(value);
-        chemicalProgressBar.setValue(value);
-        nutritionProgressBar.setValue(value);
-        microbioProgressBar.setValue(value);
-        spoilageProgressBar.setValue(value);
-
-        // int currentvalue=finalProgressBar.getValue();
-        // int newvalue=currentvalue-15;
-        // finalProgressBar.setValue(newvalue);
-    }//GEN-LAST:event_radioQ6NoActionPerformed
-
-    private void radioQ1NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ1NoActionPerformed
-        // TODO add your handling code here:
-        int value = 0;
-
-        finalProgressBar.setValue(value);
-        chemicalProgressBar.setValue(value);
-        nutritionProgressBar.setValue(value);
-        microbioProgressBar.setValue(value);
-        spoilageProgressBar.setValue(value);
-    }//GEN-LAST:event_radioQ1NoActionPerformed
-
-    private void radioQ3YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ3YesActionPerformed
+    private void radioQ5YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ5YesActionPerformed
         // TODO add your handling code here:
 
         int currentvalue = finalProgressBar.getValue();
@@ -857,140 +1033,43 @@ public class ProcessQWorkRequestJPanel extends javax.swing.JPanel {
         finalProgressBar.setValue(newvalue);
 
         int internalvalue = 100;
-        microbioProgressBar.setValue(internalvalue);
-    }//GEN-LAST:event_radioQ3YesActionPerformed
-
-    private void radioQ2YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ2YesActionPerformed
-        // TODO add your handling code here:
-
-        int currentvalue = finalProgressBar.getValue();
-        int newvalue = currentvalue + 15;
-        finalProgressBar.setValue(newvalue);
-        int internalvalue = 50;
+        //  int newinternalvalue=internalvalue-15;
         chemicalProgressBar.setValue(internalvalue);
-        nutritionProgressBar.setValue(internalvalue);
-    }//GEN-LAST:event_radioQ2YesActionPerformed
+        // nutritionProgressBar.setValue(internalvalue);
+    }//GEN-LAST:event_radioQ5YesActionPerformed
 
-    private void radioQ7YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ7YesActionPerformed
+    private void radioQ5NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ5NoActionPerformed
+        // TODO add your handling code here:
+        int value = 0;
+        //   int internalvalue=10;
+
+        // finalProgressBar.setEnabled(true);
+        finalProgressBar.setBackground(Color.red);
+        chemicalProgressBar.setBackground(Color.red);
+        nutritionProgressBar.setBackground(Color.red);
+        spoilageProgressBar.setBackground(Color.red);
+        microbioProgressBar.setBackground(Color.red);
+
+        finalProgressBar.setValue(value);
+        chemicalProgressBar.setValue(value);
+        nutritionProgressBar.setValue(value);
+        microbioProgressBar.setValue(value);
+        spoilageProgressBar.setValue(value);
+
+        // int currentvalue=finalProgressBar.getValue();
+        // int newvalue=currentvalue-15;
+        // finalProgressBar.setValue(newvalue);
+    }//GEN-LAST:event_radioQ5NoActionPerformed
+
+    private void radioQ6YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ6YesActionPerformed
         // TODO add your handling code here:
 
-        if (radioQ1Yes.isSelected() && radioQ2Yes.isSelected() && radioQ3Yes.isSelected() && radioQ4Yes.isSelected()
-            && radioQ5Yes.isSelected() && radioQ6Yes.isSelected() && radioQ7Yes.isSelected()) {
-            resultJTextField.setText("QUALIFIED");
-
-        }
         int currentvalue = finalProgressBar.getValue();
         int newvalue = currentvalue + 15;
         finalProgressBar.setValue(newvalue);
-        finalProgressBar.setStringPainted(true);
-        finalProgressBar.setForeground(Color.white);
-        finalProgressBar.setBackground(Color.green);
-        finalProgressBar.setString("100% QUALIFIED ");
         int internalvalue = 100;
-        nutritionProgressBar.setValue(internalvalue);
-    }//GEN-LAST:event_radioQ7YesActionPerformed
-
-    private void radioQ3NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ3NoActionPerformed
-        // TODO add your handling code here:
-        int value = 0;
-        //   int internalvalue=10;
-
-        // finalProgressBar.setEnabled(true);
-        finalProgressBar.setBackground(Color.red);
-        chemicalProgressBar.setBackground(Color.red);
-        nutritionProgressBar.setBackground(Color.red);
-        spoilageProgressBar.setBackground(Color.red);
-        microbioProgressBar.setBackground(Color.red);
-
-        finalProgressBar.setValue(value);
-        chemicalProgressBar.setValue(value);
-        nutritionProgressBar.setValue(value);
-        microbioProgressBar.setValue(value);
-        spoilageProgressBar.setValue(value);
-
-        // int currentvalue=finalProgressBar.getValue();
-        // int newvalue=currentvalue-15;
-        // finalProgressBar.setValue(newvalue);
-    }//GEN-LAST:event_radioQ3NoActionPerformed
-
-    private void radioQ7NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ7NoActionPerformed
-        // TODO add your handling code here:
-        int value = 0;
-        //   int internalvalue=10;
-        resultJTextField.setText("NOT QUALIFIED ");
-        // finalProgressBar.setEnabled(true);
-        finalProgressBar.setBackground(Color.red);
-        chemicalProgressBar.setBackground(Color.red);
-        nutritionProgressBar.setBackground(Color.red);
-        spoilageProgressBar.setBackground(Color.red);
-        microbioProgressBar.setBackground(Color.red);
-
-        finalProgressBar.setValue(value);
-        chemicalProgressBar.setValue(value);
-        nutritionProgressBar.setValue(value);
-        microbioProgressBar.setValue(value);
-        spoilageProgressBar.setValue(value);
-
-        // int currentvalue=finalProgressBar.getValue();
-        // int newvalue=currentvalue-15;
-        // finalProgressBar.setValue(newvalue);
-    }//GEN-LAST:event_radioQ7NoActionPerformed
-
-    private void radioQ2NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ2NoActionPerformed
-        // TODO add your handling code here:
-
-        int value = 0;
-        //   int internalvalue=10;
-
-        finalProgressBar.setBackground(Color.red);
-        chemicalProgressBar.setBackground(Color.red);
-        nutritionProgressBar.setBackground(Color.red);
-        spoilageProgressBar.setBackground(Color.red);
-        microbioProgressBar.setBackground(Color.red);
-
-        finalProgressBar.setValue(value);
-        chemicalProgressBar.setValue(value);
-        nutritionProgressBar.setValue(value);
-        microbioProgressBar.setValue(value);
-        spoilageProgressBar.setValue(value);
-
-        // int currentvalue=finalProgressBar.getValue();
-        // int newvalue=currentvalue-15;
-        // finalProgressBar.setValue(newvalue);
-    }//GEN-LAST:event_radioQ2NoActionPerformed
-
-    private void radioQ4NoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ4NoActionPerformed
-        // TODO add your handling code here:
-        int value = 0;
-        //   int internalvalue=10;
-
-        // finalProgressBar.setEnabled(true);
-        finalProgressBar.setBackground(Color.red);
-        chemicalProgressBar.setBackground(Color.red);
-        nutritionProgressBar.setBackground(Color.red);
-        spoilageProgressBar.setBackground(Color.red);
-        microbioProgressBar.setBackground(Color.red);
-
-        finalProgressBar.setValue(value);
-        chemicalProgressBar.setValue(value);
-        nutritionProgressBar.setValue(value);
-        microbioProgressBar.setValue(value);
-        spoilageProgressBar.setValue(value);
-
-        // int currentvalue=finalProgressBar.getValue();
-        // int newvalue=currentvalue-15;
-        // finalProgressBar.setValue(newvalue);
-    }//GEN-LAST:event_radioQ4NoActionPerformed
-
-    private void radioQ4YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioQ4YesActionPerformed
-        // TODO add your handling code here:
-
-        int currentvalue = finalProgressBar.getValue();
-        int newvalue = currentvalue + 15;
-        finalProgressBar.setValue(newvalue);
-        int internalvalue = 70;
-        chemicalProgressBar.setValue(internalvalue);
-    }//GEN-LAST:event_radioQ4YesActionPerformed
+        spoilageProgressBar.setValue(internalvalue);
+    }//GEN-LAST:event_radioQ6YesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

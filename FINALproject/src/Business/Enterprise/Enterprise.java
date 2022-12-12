@@ -11,9 +11,10 @@ import Business.Organization.OrganizationDirectory;
  *
  *  @author db
  */
+
 public abstract class Enterprise extends Organization{
     
-    private Enterprise.EnterpriseType enterpriseType;
+    private EnterpriseType enterpriseType;
     private OrganizationDirectory organizationDirectory;
 
     public OrganizationDirectory getOrganizationDirectory() {
@@ -27,20 +28,20 @@ public abstract class Enterprise extends Organization{
         QualityCheck("Quality Check"),
         Supplier("Supplier");
        
-        
         private String value;
         
         private EnterpriseType(String value){
             this.value=value;
         }
+        
         public String getValue() {
             return value;
         }
+        
         @Override
         public String toString(){
-        return value;
-
-    }
+            return value;
+        }
     }
     
     public enum EnumType1{
@@ -99,18 +100,17 @@ public abstract class Enterprise extends Organization{
     }
 
 
-    public Enterprise.EnterpriseType getEnterpriseType() {
+    public EnterpriseType getEnterpriseType() {
         return enterpriseType;
     }
 
-    public void setEnterpriseType(Enterprise.EnterpriseType enterpriseType) {
+    public void setEnterpriseType(EnterpriseType enterpriseType) {
         this.enterpriseType = enterpriseType;
     }
     
-    public Enterprise(String name,Enterprise.EnterpriseType type){
+    public Enterprise(String name,EnterpriseType type){
         super(name);
         this.enterpriseType=type;
         organizationDirectory=new OrganizationDirectory();
     }
-    
 }

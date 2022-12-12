@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class WorkQueue {
     
-    
      private ArrayList<WorkRequest> workRequestList;
 
     public WorkQueue() {
@@ -24,5 +23,5 @@ public class WorkQueue {
         return workRequestList;
     }
     
-    
 }
+

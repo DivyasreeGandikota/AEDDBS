@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author db
+ *  @author db
  */
+
 public class ShelterEnterprise extends Enterprise {
     
-      public ShelterEnterprise(String name){
+    public ShelterEnterprise(String name){
         super(name,Enterprise.EnterpriseType.Shelter);
     }
     
