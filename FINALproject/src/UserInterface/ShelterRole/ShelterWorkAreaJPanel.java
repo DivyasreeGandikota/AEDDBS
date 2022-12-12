@@ -4,6 +4,19 @@
  */
 package UserInterface.ShelterRole;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.ShelterOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.FoodRequirementRequest;
+import Business.WorkQueue.Products;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author bunny
@@ -13,8 +26,21 @@ public class ShelterWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ShelterWorkAreaJPanel
      */
-    public ShelterWorkAreaJPanel() {
+     private JPanel userProcessContainer;
+    private UserAccount userAccount;
+    private ShelterOrganization shelterOrganization;
+    private Enterprise enterprise;
+    private EcoSystem business;
+    
+    public ShelterWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, ShelterOrganization shelterOrganization, Enterprise enterprise, EcoSystem business) {
         initComponents();
+         this.userProcessContainer=userProcessContainer;
+        this.enterprise=enterprise;
+        this.userAccount=userAccount;
+        this.shelterOrganization=shelterOrganization;
+        this.business=business;
+        valueLabel.setText(enterprise.getName());
+        populateRequestTable();
     }
 
     /**
